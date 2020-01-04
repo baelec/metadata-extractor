@@ -1,63 +1,31 @@
-apply plugin: 'java'
-apply plugin: 'kotlin'
+buildscript {
+  ext.versions = [
+    'java': '1.8',
+    'kotlin': '1.3.61',
+    'junit': '4.12',
+    'xmp': '6.0.6'
+  ]
 
-version = '2.1.1'
+  ext.deps = [
+      'kotlinStdlib': "org.jetbrains.kotlin:kotlin-stdlib-jdk8:${versions.kotlin}",
+      'junit': "junit:junit:${versions.junit}",
+      'xmp': "com.adobe.xmp:xmpcore:${versions.xmp}"
+  ]
 
-jar {
-    manifest {
-        attributes 'Implementation-Title': 'metadata-extractor',
-                   'Implementation-Version': version,
-                   'Main-Class': 'com.drew.imaging.ImageMetadataReader'
-    }
-}
-
-sourceSets {
-    main {
-        java.srcDirs = ['Source']
-        resources.srcDirs = ['Resources']
-    }
-    test {
-        java.srcDirs = ["Tests"]
-    }
-}
-
-repositories {
+  repositories {
     mavenCentral()
+  }
+
+  dependencies {
+    classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$versions.kotlin"
+  }
 }
 
-compileJava {
-    sourceCompatibility = '1.8'
-    targetCompatibility = '1.8'
-
-    options.encoding = 'UTF-8'
-}
-
-dependencies {
-    compile 'com.adobe.xmp:xmpcore:6.0.6'
-    testCompile 'junit:junit:4.12'
-    compile "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
+allprojects {
+  group = 'com.drew.imaging'
+  version = '2.1.1'
 }
 
 wrapper {
-    gradleVersion = '6.0.1'
+  gradleVersion = '6.0.1'
 }
-buildscript {
-    ext.kotlin_version = '1.3.61'
-    repositories {
-        mavenCentral()
-    }
-    dependencies {
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
-    }
-}
-compileKotlin {
-    kotlinOptions {
-        jvmTarget = "1.8"
-    }
-}
-compileTestKotlin {
-    kotlinOptions {
-        jvmTarget = "1.8"
-    }
-}
-

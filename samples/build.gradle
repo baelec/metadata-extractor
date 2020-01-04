@@ -1,0 +1,21 @@
+apply plugin: 'java'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation project(":lib")
+}
+
+compileKotlin {
+    kotlinOptions {
+        jvmTarget = versions.java
+    }
+}
+
+compileJava {
+    sourceCompatibility = versions.java
+    targetCompatibility = versions.java
+    options.encoding = 'UTF-8'
+}

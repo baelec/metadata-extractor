@@ -1,8 +1,6 @@
 /Releases
 /.idea
-/Output
-/out
-/TestReports
+/.iml
 /gradle
 /gradlew
 /gradlew.bat

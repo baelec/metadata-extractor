@@ -1,0 +1,32 @@
+apply plugin: 'java'
+apply plugin: 'kotlin'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation deps.kotlinStdlib
+    implementation deps.xmp
+    testImplementation deps.junit
+}
+
+compileKotlin {
+    kotlinOptions {
+        jvmTarget = versions.java
+    }
+}
+
+compileJava {
+    sourceCompatibility = versions.java
+    targetCompatibility = versions.java
+    options.encoding = 'UTF-8'
+}
+
+jar {
+    manifest {
+        attributes 'Implementation-Title': 'metadata-extractor',
+                   'Implementation-Version': version,
+                   'Main-Class': 'com.drew.imaging.ImageMetadataReader'
+    }
+}
