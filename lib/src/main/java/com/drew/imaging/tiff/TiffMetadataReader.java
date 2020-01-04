@@ -23,7 +23,7 @@ package com.drew.imaging.tiff;
 import com.drew.lang.RandomAccessFileReader;
 import com.drew.lang.RandomAccessReader;
 import com.drew.lang.RandomAccessStreamReader;
-import com.drew.lang.annotations.NotNull;
+import org.jetbrains.annotations.NotNull;
 import com.drew.metadata.Metadata;
 import com.drew.metadata.exif.ExifTiffHandler;
 import com.drew.metadata.file.FileSystemMetadataReader;

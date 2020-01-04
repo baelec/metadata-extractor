@@ -22,7 +22,7 @@ package com.drew.metadata.avi;
 
 import com.drew.imaging.riff.RiffHandler;
 import com.drew.lang.ByteArrayReader;
-import com.drew.lang.annotations.NotNull;
+import org.jetbrains.annotations.NotNull;
 import com.drew.metadata.Metadata;
 
 import java.io.IOException;

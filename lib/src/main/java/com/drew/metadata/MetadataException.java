@@ -21,7 +21,7 @@
 package com.drew.metadata;
 
 import com.drew.lang.CompoundException;
-import com.drew.lang.annotations.Nullable;
+import org.jetbrains.annotations.Nullable;
 
 /**
  * Base class for all metadata specific exceptions.

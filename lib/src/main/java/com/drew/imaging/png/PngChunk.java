@@ -20,7 +20,7 @@
  */
 package com.drew.imaging.png;
 
-import com.drew.lang.annotations.NotNull;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * @author Drew Noakes https://drewnoakes.com

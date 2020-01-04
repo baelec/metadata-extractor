@@ -21,7 +21,7 @@
 package com.drew.metadata.file;
 
 import com.drew.imaging.FileType;
-import com.drew.lang.annotations.NotNull;
+import org.jetbrains.annotations.NotNull;
 import com.drew.metadata.Directory;
 
 import java.util.HashMap;

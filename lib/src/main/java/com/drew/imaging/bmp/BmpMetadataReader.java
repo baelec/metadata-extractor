@@ -22,7 +22,7 @@
 package com.drew.imaging.bmp;
 
 import com.drew.lang.StreamReader;
-import com.drew.lang.annotations.NotNull;
+import org.jetbrains.annotations.NotNull;
 import com.drew.metadata.Metadata;
 import com.drew.metadata.bmp.BmpReader;
 import com.drew.metadata.file.FileSystemMetadataReader;

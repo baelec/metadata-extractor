@@ -22,8 +22,8 @@ package com.drew.metadata.mov;
 
 import com.drew.imaging.quicktime.QuickTimeHandler;
 import com.drew.lang.SequentialByteArrayReader;
-import com.drew.lang.annotations.NotNull;
-import com.drew.lang.annotations.Nullable;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import com.drew.metadata.Metadata;
 import com.drew.metadata.mov.atoms.Atom;
 import com.drew.metadata.mov.metadata.QuickTimeMetadataDirectory;

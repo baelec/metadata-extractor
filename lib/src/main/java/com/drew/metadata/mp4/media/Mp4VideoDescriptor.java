@@ -20,7 +20,7 @@
  */
 package com.drew.metadata.mp4.media;
 
-import com.drew.lang.annotations.NotNull;
+import org.jetbrains.annotations.NotNull;
 import com.drew.metadata.TagDescriptor;
 
 import static com.drew.metadata.mp4.media.Mp4VideoDirectory.*;

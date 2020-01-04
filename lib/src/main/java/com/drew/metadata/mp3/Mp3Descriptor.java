@@ -20,7 +20,7 @@
  */
 package com.drew.metadata.mp3;
 
-import com.drew.lang.annotations.Nullable;
+import org.jetbrains.annotations.Nullable;
 import com.drew.metadata.TagDescriptor;
 
 /**

@@ -20,7 +20,7 @@
  */
 package com.drew.metadata.jfif;
 
-import com.drew.lang.annotations.NotNull;
+import org.jetbrains.annotations.NotNull;
 import com.drew.metadata.Directory;
 import com.drew.metadata.MetadataException;
 

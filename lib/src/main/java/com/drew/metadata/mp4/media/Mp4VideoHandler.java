@@ -21,7 +21,7 @@
 package com.drew.metadata.mp4.media;
 
 import com.drew.lang.SequentialReader;
-import com.drew.lang.annotations.NotNull;
+import org.jetbrains.annotations.NotNull;
 import com.drew.metadata.Metadata;
 import com.drew.metadata.mp4.Mp4BoxTypes;
 import com.drew.metadata.mp4.Mp4Context;

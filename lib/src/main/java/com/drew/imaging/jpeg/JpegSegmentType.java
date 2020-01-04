@@ -20,7 +20,7 @@
  */
 package com.drew.imaging.jpeg;
 
-import com.drew.lang.annotations.Nullable;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.Collection;

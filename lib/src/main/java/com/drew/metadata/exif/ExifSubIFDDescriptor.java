@@ -20,7 +20,7 @@
  */
 package com.drew.metadata.exif;
 
-import com.drew.lang.annotations.NotNull;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * Provides human-readable string representations of tag values stored in a {@link ExifSubIFDDirectory}.

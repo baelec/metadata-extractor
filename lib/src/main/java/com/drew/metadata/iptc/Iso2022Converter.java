@@ -20,8 +20,8 @@
  */
 package com.drew.metadata.iptc;
 
-import com.drew.lang.annotations.NotNull;
-import com.drew.lang.annotations.Nullable;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.nio.ByteBuffer;
 import java.nio.charset.CharacterCodingException;

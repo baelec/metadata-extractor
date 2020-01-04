@@ -21,8 +21,8 @@
 
 package com.drew.lang;
 
-import com.drew.lang.annotations.NotNull;
-import com.drew.lang.annotations.Nullable;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import com.drew.metadata.StringValue;
 
 import java.io.IOException;

@@ -23,7 +23,7 @@ package com.drew.imaging.wav;
 import com.drew.imaging.riff.RiffProcessingException;
 import com.drew.imaging.riff.RiffReader;
 import com.drew.lang.StreamReader;
-import com.drew.lang.annotations.NotNull;
+import org.jetbrains.annotations.NotNull;
 import com.drew.metadata.Metadata;
 import com.drew.metadata.file.FileSystemMetadataReader;
 import com.drew.metadata.wav.WavRiffHandler;

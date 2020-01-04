@@ -21,7 +21,7 @@
 package com.drew.imaging.quicktime;
 
 import com.drew.imaging.ImageProcessingException;
-import com.drew.lang.annotations.NotNull;
+import org.jetbrains.annotations.NotNull;
 import com.drew.metadata.Metadata;
 import com.drew.metadata.file.FileSystemMetadataReader;
 import com.drew.metadata.mov.QuickTimeAtomHandler;

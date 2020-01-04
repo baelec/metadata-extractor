@@ -21,7 +21,7 @@
 package com.drew.imaging.png;
 
 import com.drew.imaging.ImageProcessingException;
-import com.drew.lang.annotations.Nullable;
+import org.jetbrains.annotations.Nullable;
 
 /**
  * An exception class thrown upon unexpected and fatal conditions while processing a JPEG file.

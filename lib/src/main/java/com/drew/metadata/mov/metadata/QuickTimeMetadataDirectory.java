@@ -20,7 +20,7 @@
  */
 package com.drew.metadata.mov.metadata;
 
-import com.drew.lang.annotations.NotNull;
+import org.jetbrains.annotations.NotNull;
 import com.drew.metadata.mov.QuickTimeDirectory;
 
 import java.util.HashMap;

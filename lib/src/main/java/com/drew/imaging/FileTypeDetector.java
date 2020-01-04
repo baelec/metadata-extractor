@@ -21,7 +21,7 @@
 package com.drew.imaging;
 
 import com.drew.lang.ByteTrie;
-import com.drew.lang.annotations.NotNull;
+import org.jetbrains.annotations.NotNull;
 
 import java.io.FilterInputStream;
 import java.io.IOException;

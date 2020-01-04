@@ -27,7 +27,7 @@ import com.drew.imaging.jpeg.JpegSegmentData
 import com.drew.imaging.jpeg.JpegSegmentReader
 import com.drew.imaging.jpeg.JpegSegmentType
 import com.drew.lang.Iterables
-import com.drew.lang.annotations.NotNull
+import org.jetbrains.annotations.NotNull
 import java.io.File
 import java.io.IOException
 import java.util.*

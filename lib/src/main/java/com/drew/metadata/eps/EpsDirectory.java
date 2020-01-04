@@ -1,7 +1,7 @@
 package com.drew.metadata.eps;
 
 
-import com.drew.lang.annotations.NotNull;
+import org.jetbrains.annotations.NotNull;
 import com.drew.metadata.Directory;
 
 import java.util.HashMap;

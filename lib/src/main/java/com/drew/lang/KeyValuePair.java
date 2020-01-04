@@ -20,7 +20,7 @@
  */
 package com.drew.lang;
 
-import com.drew.lang.annotations.NotNull;
+import org.jetbrains.annotations.NotNull;
 import com.drew.metadata.StringValue;
 
 /**

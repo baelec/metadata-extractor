@@ -21,8 +21,8 @@
 
 package com.drew.metadata.ico;
 
-import com.drew.lang.annotations.NotNull;
-import com.drew.lang.annotations.Nullable;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import com.drew.metadata.TagDescriptor;
 
 import static com.drew.metadata.ico.IcoDirectory.*;

@@ -21,8 +21,8 @@
 package com.drew.metadata.exif.makernotes;
 
 import com.drew.lang.Rational;
-import com.drew.lang.annotations.NotNull;
-import com.drew.lang.annotations.Nullable;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import com.drew.metadata.TagDescriptor;
 
 import java.nio.ByteBuffer;
@@ -112,7 +112,7 @@ public class NikonType2MakernoteDescriptor extends TagDescriptor<NikonType2Maker
 
         byte[] values = _directory.getByteArray(TAG_POWER_UP_TIME);
         short year = ByteBuffer.wrap(new byte[]{values[0], values[1]}).getShort();
-        return String.format("%04d:%02d:%02d %02d:%02d:%02d", year, values[2], values[3], 
+        return String.format("%04d:%02d:%02d %02d:%02d:%02d", year, values[2], values[3],
                                                         values[4], values[5], values[6]);
     }
 

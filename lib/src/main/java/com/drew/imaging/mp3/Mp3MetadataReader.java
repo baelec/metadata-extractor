@@ -20,7 +20,7 @@
  */
 package com.drew.imaging.mp3;
 
-import com.drew.lang.annotations.NotNull;
+import org.jetbrains.annotations.NotNull;
 import com.drew.metadata.Metadata;
 import com.drew.metadata.file.FileSystemMetadataReader;
 import com.drew.metadata.mp3.Mp3Reader;

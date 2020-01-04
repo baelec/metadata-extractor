@@ -21,8 +21,8 @@
 package com.drew.imaging.png;
 
 import com.drew.lang.SequentialReader;
-import com.drew.lang.annotations.NotNull;
-import com.drew.lang.annotations.Nullable;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.io.IOException;
 import java.util.*;

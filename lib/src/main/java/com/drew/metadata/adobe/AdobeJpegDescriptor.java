@@ -21,7 +21,7 @@
 
 package com.drew.metadata.adobe;
 
-import com.drew.lang.annotations.Nullable;
+import org.jetbrains.annotations.Nullable;
 import com.drew.metadata.TagDescriptor;
 
 import static com.drew.metadata.adobe.AdobeJpegDirectory.*;

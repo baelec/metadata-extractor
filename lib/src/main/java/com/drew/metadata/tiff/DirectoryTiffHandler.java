@@ -22,8 +22,8 @@ package com.drew.metadata.tiff;
 
 import com.drew.imaging.tiff.TiffHandler;
 import com.drew.lang.Rational;
-import com.drew.lang.annotations.NotNull;
-import com.drew.lang.annotations.Nullable;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import com.drew.metadata.Directory;
 import com.drew.metadata.ErrorDirectory;
 import com.drew.metadata.Metadata;

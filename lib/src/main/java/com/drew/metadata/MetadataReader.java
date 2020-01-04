@@ -21,7 +21,7 @@
 package com.drew.metadata;
 
 import com.drew.lang.RandomAccessReader;
-import com.drew.lang.annotations.NotNull;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * Defines an object capable of processing a particular type of metadata from a {@link RandomAccessReader}.

@@ -21,7 +21,7 @@
 package com.drew.imaging;
 
 import com.drew.lang.CompoundException;
-import com.drew.lang.annotations.Nullable;
+import org.jetbrains.annotations.Nullable;
 
 /**
  * An exception class thrown upon an unexpected condition that was fatal for the processing of an image.

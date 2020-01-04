@@ -21,8 +21,8 @@
 
 package com.drew.metadata;
 
-import com.drew.lang.annotations.NotNull;
-import com.drew.lang.annotations.Nullable;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 /**
  * Represents an age in years, months, days, hours, minutes and seconds.

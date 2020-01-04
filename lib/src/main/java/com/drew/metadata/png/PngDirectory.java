@@ -21,7 +21,7 @@
 package com.drew.metadata.png;
 
 import com.drew.imaging.png.PngChunkType;
-import com.drew.lang.annotations.NotNull;
+import org.jetbrains.annotations.NotNull;
 import com.drew.metadata.Directory;
 
 import java.util.HashMap;

@@ -21,7 +21,7 @@
 package com.drew.metadata.mp4;
 
 import com.drew.lang.Rational;
-import com.drew.lang.annotations.NotNull;
+import org.jetbrains.annotations.NotNull;
 import com.drew.metadata.Directory;
 import com.drew.metadata.TagDescriptor;
 

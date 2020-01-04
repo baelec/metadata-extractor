@@ -23,7 +23,7 @@ package com.drew.metadata.bmp;
 import com.drew.lang.ByteArrayReader;
 import com.drew.lang.Charsets;
 import com.drew.lang.SequentialReader;
-import com.drew.lang.annotations.NotNull;
+import org.jetbrains.annotations.NotNull;
 import com.drew.metadata.Directory;
 import com.drew.metadata.ErrorDirectory;
 import com.drew.metadata.Metadata;

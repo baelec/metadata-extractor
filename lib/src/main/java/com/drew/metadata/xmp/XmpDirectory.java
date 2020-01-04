@@ -25,8 +25,8 @@ import com.adobe.internal.xmp.XMPMeta;
 import com.adobe.internal.xmp.impl.XMPMetaImpl;
 import com.adobe.internal.xmp.options.IteratorOptions;
 import com.adobe.internal.xmp.properties.XMPPropertyInfo;
-import com.drew.lang.annotations.NotNull;
-import com.drew.lang.annotations.Nullable;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import com.drew.metadata.Directory;
 
 import java.util.Collections;

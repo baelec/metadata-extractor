@@ -21,7 +21,7 @@
 package com.drew.imaging.png;
 
 import com.drew.lang.*;
-import com.drew.lang.annotations.NotNull;
+import org.jetbrains.annotations.NotNull;
 import com.drew.metadata.Metadata;
 import com.drew.metadata.StringValue;
 import com.drew.metadata.file.FileSystemMetadataReader;

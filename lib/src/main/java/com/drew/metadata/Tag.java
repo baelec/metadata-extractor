@@ -20,8 +20,8 @@
  */
 package com.drew.metadata;
 
-import com.drew.lang.annotations.NotNull;
-import com.drew.lang.annotations.Nullable;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 /**
  * Models a particular tag within a {@link com.drew.metadata.Directory} and provides methods for obtaining its value.

@@ -23,8 +23,8 @@ package com.drew.metadata.photoshop;
 import com.drew.lang.ByteArrayReader;
 import com.drew.lang.Charsets;
 import com.drew.lang.RandomAccessReader;
-import com.drew.lang.annotations.NotNull;
-import com.drew.lang.annotations.Nullable;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import com.drew.metadata.TagDescriptor;
 
 import java.io.IOException;

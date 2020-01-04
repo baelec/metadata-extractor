@@ -22,7 +22,7 @@ package com.drew.imaging.tiff;
 
 import com.drew.lang.RandomAccessReader;
 import com.drew.lang.Rational;
-import com.drew.lang.annotations.NotNull;
+import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
 import java.util.HashSet;

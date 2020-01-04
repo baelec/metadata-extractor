@@ -22,7 +22,7 @@
 package com.drew.imaging.tiff;
 
 import com.drew.imaging.ImageProcessingException;
-import com.drew.lang.annotations.Nullable;
+import org.jetbrains.annotations.Nullable;
 
 /**
  * An exception class thrown upon unexpected and fatal conditions while processing a TIFF file.

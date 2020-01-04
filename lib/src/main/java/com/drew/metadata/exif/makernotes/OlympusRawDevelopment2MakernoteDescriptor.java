@@ -20,8 +20,8 @@
  */
 package com.drew.metadata.exif.makernotes;
 
-import com.drew.lang.annotations.NotNull;
-import com.drew.lang.annotations.Nullable;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import com.drew.metadata.TagDescriptor;
 
 import java.util.HashMap;
@@ -111,7 +111,7 @@ public class OlympusRawDevelopment2MakernoteDescriptor extends TagDescriptor<Oly
         if (((v >> 1) & 1) != 0) sb.append("Noise Filter, ");
         if (((v >> 2) & 1) != 0) sb.append("Noise Filter (ISO Boost), ");
         if (((v >> 3) & 1) != 0) sb.append("Noise Filter (Auto), ");
-        
+
         if (sb.length() > 2) {
             sb.delete(sb.length() - 2, sb.length());
         }

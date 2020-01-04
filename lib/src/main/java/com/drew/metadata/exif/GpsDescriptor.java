@@ -22,8 +22,8 @@ package com.drew.metadata.exif;
 
 import com.drew.lang.GeoLocation;
 import com.drew.lang.Rational;
-import com.drew.lang.annotations.NotNull;
-import com.drew.lang.annotations.Nullable;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import com.drew.metadata.TagDescriptor;
 
 import java.text.DecimalFormat;

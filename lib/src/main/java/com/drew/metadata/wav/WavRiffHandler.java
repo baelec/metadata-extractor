@@ -2,7 +2,7 @@ package com.drew.metadata.wav;
 
 import com.drew.imaging.riff.RiffHandler;
 import com.drew.lang.ByteArrayReader;
-import com.drew.lang.annotations.NotNull;
+import org.jetbrains.annotations.NotNull;
 import com.drew.metadata.Metadata;
 import com.drew.metadata.MetadataException;
 

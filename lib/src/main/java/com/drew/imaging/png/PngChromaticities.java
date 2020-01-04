@@ -21,7 +21,7 @@
 package com.drew.imaging.png;
 
 import com.drew.lang.SequentialByteArrayReader;
-import com.drew.lang.annotations.NotNull;
+import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
 

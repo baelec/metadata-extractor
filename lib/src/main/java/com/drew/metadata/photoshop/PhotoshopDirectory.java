@@ -21,8 +21,8 @@
 
 package com.drew.metadata.photoshop;
 
-import com.drew.lang.annotations.NotNull;
-import com.drew.lang.annotations.Nullable;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import com.drew.metadata.Directory;
 
 import java.util.HashMap;

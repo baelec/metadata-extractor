@@ -1,6 +1,6 @@
 package com.drew.imaging.eps;
 
-import com.drew.lang.annotations.NotNull;
+import org.jetbrains.annotations.NotNull;
 import com.drew.metadata.Metadata;
 import com.drew.metadata.eps.EpsReader;
 import com.drew.metadata.file.FileSystemMetadataReader;

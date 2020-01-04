@@ -20,7 +20,7 @@
  */
 package com.drew.metadata.mov.media;
 
-import com.drew.lang.annotations.NotNull;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.HashMap;
 

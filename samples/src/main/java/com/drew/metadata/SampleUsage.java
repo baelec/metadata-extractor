@@ -43,7 +43,7 @@ public class SampleUsage
 {
     public static void main(String[] args)
     {
-        File file = new File("Tests/Data/withIptcExifGps.jpg");
+        File file = new File("src/test/resources/withIptcExifGps.jpg");
 
         // There are multiple ways to get a Metadata object for a file
 

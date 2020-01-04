@@ -20,7 +20,7 @@
  */
 package com.drew.imaging.riff;
 
-import com.drew.lang.annotations.NotNull;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * Interface of an class capable of handling events raised during the reading of a RIFF file

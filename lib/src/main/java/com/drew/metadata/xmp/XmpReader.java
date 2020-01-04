@@ -32,8 +32,8 @@ import com.drew.imaging.jpeg.JpegSegmentType;
 import com.drew.lang.SequentialByteArrayReader;
 import com.drew.lang.SequentialReader;
 import com.drew.metadata.Directory;
-import com.drew.lang.annotations.NotNull;
-import com.drew.lang.annotations.Nullable;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import com.drew.metadata.Metadata;
 import com.drew.metadata.StringValue;
 
@@ -65,7 +65,7 @@ public class XmpReader implements JpegSegmentMetadataReader
     private static final String SCHEMA_XMP_NOTES = "http://ns.adobe.com/xmp/note/";
     @NotNull
     private static final String ATTRIBUTE_EXTENDED_XMP = "xmpNote:HasExtendedXMP";
-    // Limit photoshop:DocumentAncestors node as it can reach over 100000 items and make parsing extremely slow. 
+    // Limit photoshop:DocumentAncestors node as it can reach over 100000 items and make parsing extremely slow.
     // This is not a typical value but it may happen https://forums.adobe.com/thread/2081839
     @NotNull
     private static final ParseOptions PARSE_OPTIONS = new ParseOptions().setXMPNodesToLimit(Collections.singletonMap("photoshop:DocumentAncestors", 1000));

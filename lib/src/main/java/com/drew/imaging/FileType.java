@@ -20,8 +20,8 @@
  */
 package com.drew.imaging;
 
-import com.drew.lang.annotations.NotNull;
-import com.drew.lang.annotations.Nullable;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 /**
  * Enumeration of supported file types.

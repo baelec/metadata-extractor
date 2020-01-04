@@ -22,8 +22,8 @@ package com.drew.metadata;
 
 import com.drew.lang.Rational;
 import com.drew.lang.StringUtil;
-import com.drew.lang.annotations.NotNull;
-import com.drew.lang.annotations.Nullable;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Array;

@@ -22,8 +22,8 @@ package com.drew.imaging.jpeg;
 
 import com.drew.lang.SequentialReader;
 import com.drew.lang.StreamReader;
-import com.drew.lang.annotations.NotNull;
-import com.drew.lang.annotations.Nullable;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.io.File;
 import java.io.FileInputStream;

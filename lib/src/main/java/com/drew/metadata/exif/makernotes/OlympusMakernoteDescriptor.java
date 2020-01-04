@@ -23,8 +23,8 @@ package com.drew.metadata.exif.makernotes;
 import com.drew.imaging.PhotographicConversions;
 import com.drew.lang.Rational;
 import com.drew.lang.DateUtil;
-import com.drew.lang.annotations.NotNull;
-import com.drew.lang.annotations.Nullable;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import com.drew.metadata.TagDescriptor;
 
 import java.math.RoundingMode;

@@ -20,8 +20,8 @@
  */
 package com.drew.metadata.exif.makernotes;
 
-import com.drew.lang.annotations.Nullable;
-import com.drew.lang.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+import org.jetbrains.annotations.NotNull;
 import com.drew.metadata.Directory;
 
 import java.util.HashMap;
