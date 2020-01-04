@@ -1,3 +1,5 @@
+@file:JvmName("Charsets")
+
 /*
  * Copyright 2002-2019 Drew Noakes and contributors
  *
@@ -18,9 +20,10 @@
  *    https://drewnoakes.com/code/exif/
  *    https://github.com/drewnoakes/metadata-extractor
  */
-package com.drew.lang;
+package com.drew.lang
 
-import java.nio.charset.Charset;
+import java.nio.charset.Charset
+import java.nio.charset.StandardCharsets
 
 /**
  * Holds a set of commonly used character encodings.
@@ -29,13 +32,16 @@ import java.nio.charset.Charset;
  *
  * @author Drew Noakes https://drewnoakes.com
  */
-public final class Charsets
-{
-    public static final Charset UTF_8 = Charset.forName("UTF-8");
-    public static final Charset UTF_16 = Charset.forName("UTF-16");
-    public static final Charset ISO_8859_1 = Charset.forName("ISO-8859-1");
-    public static final Charset ASCII = Charset.forName("US-ASCII");
-    public static final Charset UTF_16BE = Charset.forName("UTF-16BE");
-    public static final Charset UTF_16LE = Charset.forName("UTF-16LE");
-    public static final Charset WINDOWS_1252 = Charset.forName("Cp1252");
-}
+@JvmField
+val UTF_8 = StandardCharsets.UTF_8
+val UTF_16 = StandardCharsets.UTF_16
+@JvmField
+val ISO_8859_1 = StandardCharsets.ISO_8859_1
+@JvmField
+val ASCII = StandardCharsets.US_ASCII
+@JvmField
+val UTF_16BE = StandardCharsets.UTF_16BE
+@JvmField
+val UTF_16LE = StandardCharsets.UTF_16LE
+@JvmField
+val WINDOWS_1252 = Charset.forName("Cp1252")
