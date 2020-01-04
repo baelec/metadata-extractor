@@ -1,4 +1,4 @@
-@file:JvmName("RafMetadataReader")
+@file:JvmName("GifMetadataReader")
 /*
  * Copyright 2002-2019 Drew Noakes and contributors
  *
@@ -19,24 +19,23 @@
  *    https://drewnoakes.com/code/exif/
  *    https://github.com/drewnoakes/metadata-extractor
  */
-package com.drew.imaging.raf
+package com.drew.imaging.gif
 
-import com.drew.imaging.jpeg.JpegMetadataReader
-import com.drew.imaging.jpeg.JpegProcessingException
+import com.drew.lang.StreamReader
 import com.drew.metadata.Metadata
 import com.drew.metadata.file.FileSystemMetadataReader
+import com.drew.metadata.gif.GifReader
 import java.io.File
 import java.io.FileInputStream
 import java.io.IOException
 import java.io.InputStream
 
 /**
- * Obtains metadata from RAF (Fujifilm camera raw) image files.
+ * Obtains metadata from GIF files.
  *
- * @author TSGames https://github.com/TSGames
  * @author Drew Noakes https://drewnoakes.com
  */
-@Throws(JpegProcessingException::class, IOException::class)
+@Throws(IOException::class)
 fun readMetadata(file: File): Metadata {
   val inputStream: InputStream = FileInputStream(file)
   val metadata: Metadata
@@ -47,20 +46,8 @@ fun readMetadata(file: File): Metadata {
   return metadata
 }
 
-@Throws(JpegProcessingException::class, IOException::class)
 fun readMetadata(inputStream: InputStream): Metadata {
-  if (!inputStream.markSupported()) throw IOException("Stream must support mark/reset")
-  inputStream.mark(512)
-  val data = ByteArray(512)
-  val bytesRead = inputStream.read(data)
-  if (bytesRead == -1) throw IOException("Stream is empty")
-  inputStream.reset()
-  for (i in 0 until bytesRead - 2) { // Look for the first three bytes of a JPEG encoded file
-    if (data[i] == 0xff.toByte() && data[i + 1] == 0xd8.toByte() && data[i + 2] == 0xff.toByte()) {
-      val bytesSkipped = inputStream.skip(i.toLong())
-      if (bytesSkipped != i.toLong()) throw IOException("Skipping stream bytes failed")
-      break
-    }
-  }
-  return JpegMetadataReader.readMetadata(inputStream)
+  val metadata = Metadata()
+  GifReader().extract(StreamReader(inputStream), metadata)
+  return metadata
 }
