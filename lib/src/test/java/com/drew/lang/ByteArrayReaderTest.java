@@ -35,7 +35,7 @@ public class ByteArrayReaderTest extends RandomAccessTestBase
     }
 
     @SuppressWarnings({ "ConstantConditions" })
-    @Test(expected = NullPointerException.class)
+    @Test(expected = IllegalArgumentException.class)
     public void testConstructWithNullBufferThrows()
     {
         new ByteArrayReader(null);

@@ -350,7 +350,7 @@ public class PhotoshopDescriptor extends TagDescriptor<PhotoshopDirectory>
             if (bytes == null)
                 return null;
             RandomAccessReader reader = new ByteArrayReader(bytes);
-            int length = (int) (reader.getLength() - reader.getByte((int)reader.getLength() - 1) - 1) / 26;
+            int length = (int) (reader.getLength() - reader.getByte((int) reader.getLength() - 1) - 1) / 26;
 
             String fillRecord = null;
 
@@ -455,8 +455,8 @@ public class PhotoshopDescriptor extends TagDescriptor<PhotoshopDirectory>
                 paths.add(oSubpath);
 
             // Extract name (previously appended to end of byte array)
-            int nameLength = reader.getByte((int)reader.getLength() - 1);
-            String name = reader.getString((int)reader.getLength() - nameLength - 1, nameLength, Charsets.ASCII);
+            int nameLength = reader.getByte((int) reader.getLength() - 1);
+            String name = reader.getString((int) reader.getLength() - nameLength - 1, nameLength, Charsets.ASCII);
 
             // Build description
             StringBuilder str = new StringBuilder();
