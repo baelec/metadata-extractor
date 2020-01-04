@@ -1,3 +1,5 @@
+@file:JvmName("StreamUtil")
+
 /*
  * Copyright 2002-2019 Drew Noakes and contributors
  *
@@ -18,29 +20,25 @@
  *    https://drewnoakes.com/code/exif/
  *    https://github.com/drewnoakes/metadata-extractor
  */
-package com.drew.lang;
+package com.drew.lang
 
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.ByteArrayOutputStream
+import java.io.IOException
+import java.io.InputStream
 
 /**
  * @author Drew Noakes https://drewnoakes.com
  */
-public final class StreamUtil
-{
-    public static byte[] readAllBytes(InputStream stream) throws IOException
-    {
-        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-
-        byte[] buffer = new byte[1024];
-        while (true) {
-            int bytesRead = stream.read(buffer);
-            if (bytesRead == -1)
-                break;
-            outputStream.write(buffer, 0, bytesRead);
-        }
-
-        return outputStream.toByteArray();
+@Throws(IOException::class)
+fun readAllBytes(stream: InputStream): ByteArray {
+  val outputStream = ByteArrayOutputStream()
+  val buffer = ByteArray(1024)
+  while (true) {
+    val bytesRead = stream.read(buffer)
+    if (bytesRead == -1) {
+      break
     }
+    outputStream.write(buffer, 0, bytesRead)
+  }
+  return outputStream.toByteArray()
 }
