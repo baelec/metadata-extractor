@@ -37,8 +37,7 @@ class RandomAccessFileReader @SuppressWarnings(value = "EI_EXPOSE_REP2", justifi
   private val _baseOffset: Int
 
   @SuppressWarnings(value = "EI_EXPOSE_REP2", justification = "Design intent")
-  constructor(file: RandomAccessFile) : this(file, 0) {
-  }
+  constructor(file: RandomAccessFile) : this(file, 0)
 
   override fun toUnshiftedOffset(localOffset: Int): Int {
     return localOffset + _baseOffset
@@ -83,7 +82,6 @@ class RandomAccessFileReader @SuppressWarnings(value = "EI_EXPOSE_REP2", justifi
   }
 
   init {
-    if (file == null) throw NullPointerException()
     _file = file
     _baseOffset = baseOffset
     length = _file.length()

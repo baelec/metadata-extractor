@@ -31,7 +31,7 @@ import java.io.ByteArrayInputStream;
 public class RandomAccessStreamReaderTest extends RandomAccessTestBase
 {
     @SuppressWarnings({ "ConstantConditions" })
-    @Test(expected = NullPointerException.class)
+    @Test(expected = IllegalArgumentException.class)
     public void testConstructWithNullBufferThrows()
     {
         new RandomAccessStreamReader(null);

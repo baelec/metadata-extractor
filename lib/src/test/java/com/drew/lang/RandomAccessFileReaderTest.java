@@ -77,7 +77,7 @@ public class RandomAccessFileReaderTest extends RandomAccessTestBase
     }
 
     @SuppressWarnings({ "ConstantConditions" })
-    @Test(expected = NullPointerException.class)
+    @Test(expected = IllegalArgumentException.class)
     public void testConstructWithNullBufferThrows() throws IOException
     {
         new RandomAccessFileReader(null);

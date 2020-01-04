@@ -63,16 +63,20 @@ class RandomAccessStreamReader @JvmOverloads constructor(stream: InputStream, ch
    */
   @Throws(IOException::class)
   override fun validateIndex(index: Int, bytesRequested: Int) {
-    if (index < 0) {
-      throw BufferBoundsException(String.format("Attempt to read from buffer using a negative index (%d)", index))
-    } else if (bytesRequested < 0) {
-      throw BufferBoundsException("Number of requested bytes must be zero or greater")
-    } else if (index.toLong() + bytesRequested - 1 > Int.MAX_VALUE) {
-      throw BufferBoundsException(String.format("Number of requested bytes summed with starting index exceed maximum range of signed 32 bit integers (requested index: %d, requested count: %d)", index, bytesRequested))
-    }
-    if (!isValidIndex(index, bytesRequested)) {
-      assert(_isStreamFinished)
-      throw BufferBoundsException(index, bytesRequested, _streamLength)
+    when {
+      index < 0 -> {
+        throw BufferBoundsException(String.format("Attempt to read from buffer using a negative index (%d)", index))
+      }
+      bytesRequested < 0 -> {
+        throw BufferBoundsException("Number of requested bytes must be zero or greater")
+      }
+      index.toLong() + bytesRequested - 1 > Int.MAX_VALUE -> {
+        throw BufferBoundsException(String.format("Number of requested bytes summed with starting index exceed maximum range of signed 32 bit integers (requested index: %d, requested count: %d)", index, bytesRequested))
+      }
+      !isValidIndex(index, bytesRequested) -> {
+        assert(_isStreamFinished)
+        throw BufferBoundsException(index, bytesRequested, _streamLength)
+      }
     }
   }
 
@@ -157,7 +161,6 @@ class RandomAccessStreamReader @JvmOverloads constructor(stream: InputStream, ch
   }
 
   init {
-    if (stream == null) throw NullPointerException()
     require(chunkLength > 0) { "chunkLength must be greater than zero" }
     _chunkLength = chunkLength
     _stream = stream

@@ -32,7 +32,7 @@ import java.io.PrintWriter
  */
 open class CompoundException @JvmOverloads constructor(msg: String?, val innerException: Throwable? = null) : Exception(msg) {
 
-  constructor(exception: Throwable?) : this(null, exception) {}
+  constructor(exception: Throwable?) : this(null, exception)
 
   override fun toString(): String {
     val string = StringBuilder()
@@ -73,5 +73,4 @@ open class CompoundException @JvmOverloads constructor(msg: String?, val innerEx
   companion object {
     private const val serialVersionUID = -9207883813472069925L
   }
-
 }

@@ -26,11 +26,8 @@ import com.drew.imaging.jpeg.JpegProcessingException
 import com.drew.imaging.jpeg.JpegSegmentData
 import com.drew.imaging.jpeg.JpegSegmentReader
 import com.drew.imaging.jpeg.JpegSegmentType
-import com.drew.lang.Iterables
-import org.jetbrains.annotations.NotNull
 import java.io.File
 import java.io.IOException
-import java.util.*
 import kotlin.system.exitProcess
 
 /**
@@ -78,8 +75,8 @@ fun main(args: Array<String>) {
 @Throws(IOException::class)
 fun saveSegmentFiles(jpegFilePath: String, segmentData: JpegSegmentData) {
   for (segmentType in segmentData.segmentTypes) {
-    val segments = Iterables.toList(segmentData.getSegments(segmentType))
-    if (segments.size == 0) {
+    val segments = segmentData.getSegments(segmentType).toList()
+    if (segments.isEmpty()) {
       continue
     }
     if (segments.size > 1) {
