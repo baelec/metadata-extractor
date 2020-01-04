@@ -18,26 +18,21 @@
  *    https://drewnoakes.com/code/exif/
  *    https://github.com/drewnoakes/metadata-extractor
  */
-package com.drew.lang;
+package com.drew.imaging
 
-import java.io.IOException;
-import java.io.OutputStream;
+import com.drew.lang.CompoundException
 
 /**
- * An implementation of OutputSteam that ignores write requests by doing nothing.  This class may be useful in tests.
+ * An exception class thrown upon an unexpected condition that was fatal for the processing of an image.
  *
  * @author Drew Noakes https://drewnoakes.com
  */
-public class NullOutputStream extends OutputStream
-{
-    public NullOutputStream()
-    {
-        super();
-    }
+open class ImageProcessingException : CompoundException {
+  constructor(message: String?) : super(message) {}
+  constructor(message: String?, cause: Throwable?) : super(message, cause) {}
+  constructor(cause: Throwable?) : super(cause) {}
 
-    @Override
-    public void write(int b) throws IOException
-    {
-        // do nothing
-    }
+  companion object {
+    private const val serialVersionUID = -9115669182209912676L
+  }
 }

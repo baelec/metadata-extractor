@@ -18,32 +18,21 @@
  *    https://drewnoakes.com/code/exif/
  *    https://github.com/drewnoakes/metadata-extractor
  */
-package com.drew.imaging.png;
+package com.drew.imaging.jpeg
 
-import com.drew.imaging.ImageProcessingException;
-import org.jetbrains.annotations.Nullable;
+import com.drew.imaging.ImageProcessingException
 
 /**
  * An exception class thrown upon unexpected and fatal conditions while processing a JPEG file.
  *
  * @author Drew Noakes https://drewnoakes.com
  */
-public class PngProcessingException extends ImageProcessingException
-{
-    private static final long serialVersionUID = -687991554932005033L;
+class JpegProcessingException : ImageProcessingException {
+  constructor(message: String?) : super(message) {}
+  constructor(message: String?, cause: Throwable?) : super(message, cause) {}
+  constructor(cause: Throwable?) : super(cause) {}
 
-    public PngProcessingException(@Nullable String message)
-    {
-        super(message);
-    }
-
-    public PngProcessingException(@Nullable String message, @Nullable Throwable cause)
-    {
-        super(message, cause);
-    }
-
-    public PngProcessingException(@Nullable Throwable cause)
-    {
-        super(cause);
-    }
+  companion object {
+    private const val serialVersionUID = -7870179776125450158L
+  }
 }

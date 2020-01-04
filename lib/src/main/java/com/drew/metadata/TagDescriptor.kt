@@ -27,7 +27,6 @@ import java.text.DecimalFormat
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
-import kotlin.collections.HashMap
 
 /**
  * Base class for all tag descriptor classes.  Implementations are responsible for
@@ -69,15 +68,18 @@ open class TagDescriptor<T : Directory>(@JvmField protected val _directory: T) {
     return values?.let { convertBytesToVersionString(it, majorDigits) }
   }
 
-  protected fun getIndexedDescription(tagType: Int, vararg descriptions: String): String? {
+  //TODO: descriptions was marked as "@NotNull but parts of the code pass in null. Check what is happening here.
+  protected fun getIndexedDescription(tagType: Int, vararg descriptions: String?): String? {
     return getIndexedDescription(tagType, 0, *descriptions)
   }
 
-  protected fun getIndexedDescription(tagType: Int, baseIndex: Int, vararg descriptions: String): String? {
+  //TODO: descriptions was marked as "@NotNull but parts of the code pass in null. Check what is happening here.
+  protected fun getIndexedDescription(tagType: Int, baseIndex: Int, vararg descriptions: String?): String? {
     val index = _directory.getLongObject(tagType) ?: return null
     val arrayIndex = index - baseIndex
     if (arrayIndex >= 0 && arrayIndex < descriptions.size.toLong()) {
-      return descriptions[arrayIndex.toInt()]
+      val description = descriptions[arrayIndex.toInt()]
+      if (description != null) return description
     }
     return "Unknown ($index)"
   }

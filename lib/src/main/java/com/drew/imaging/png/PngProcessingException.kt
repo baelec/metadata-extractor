@@ -18,25 +18,21 @@
  *    https://drewnoakes.com/code/exif/
  *    https://github.com/drewnoakes/metadata-extractor
  */
-package com.drew.metadata;
+package com.drew.imaging.png
 
-import com.drew.lang.RandomAccessReader;
-import org.jetbrains.annotations.NotNull;
+import com.drew.imaging.ImageProcessingException
 
 /**
- * Defines an object capable of processing a particular type of metadata from a {@link RandomAccessReader}.
- * <p>
- * Instances of this interface must be thread-safe and reusable.
+ * An exception class thrown upon unexpected and fatal conditions while processing a JPEG file.
  *
  * @author Drew Noakes https://drewnoakes.com
  */
-public interface MetadataReader
-{
-    /**
-     * Extracts metadata from <code>reader</code> and merges it into the specified {@link Metadata} object.
-     *
-     * @param reader   The {@link RandomAccessReader} from which the metadata should be extracted.
-     * @param metadata The {@link Metadata} object into which extracted values should be merged.
-     */
-    void extract(@NotNull final RandomAccessReader reader, @NotNull final Metadata metadata);
+class PngProcessingException : ImageProcessingException {
+  constructor(message: String?) : super(message) {}
+  constructor(message: String?, cause: Throwable?) : super(message, cause) {}
+  constructor(cause: Throwable?) : super(cause) {}
+
+  companion object {
+    private const val serialVersionUID = -687991554932005033L
+  }
 }

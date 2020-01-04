@@ -18,32 +18,24 @@
  *    https://drewnoakes.com/code/exif/
  *    https://github.com/drewnoakes/metadata-extractor
  */
-package com.drew.imaging.jpeg;
+package com.drew.metadata
 
-import com.drew.imaging.ImageProcessingException;
-import org.jetbrains.annotations.Nullable;
+import com.drew.lang.RandomAccessReader
 
 /**
- * An exception class thrown upon unexpected and fatal conditions while processing a JPEG file.
+ * Defines an object capable of processing a particular type of metadata from a [RandomAccessReader].
+ *
+ *
+ * Instances of this interface must be thread-safe and reusable.
  *
  * @author Drew Noakes https://drewnoakes.com
  */
-public class JpegProcessingException extends ImageProcessingException
-{
-    private static final long serialVersionUID = -7870179776125450158L;
-
-    public JpegProcessingException(@Nullable String message)
-    {
-        super(message);
-    }
-
-    public JpegProcessingException(@Nullable String message, @Nullable Throwable cause)
-    {
-        super(message, cause);
-    }
-
-    public JpegProcessingException(@Nullable Throwable cause)
-    {
-        super(cause);
-    }
+interface MetadataReader {
+  /**
+   * Extracts metadata from `reader` and merges it into the specified [Metadata] object.
+   *
+   * @param reader   The [RandomAccessReader] from which the metadata should be extracted.
+   * @param metadata The [Metadata] object into which extracted values should be merged.
+   */
+  fun extract(reader: RandomAccessReader, metadata: Metadata)
 }

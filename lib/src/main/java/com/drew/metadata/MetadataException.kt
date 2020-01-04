@@ -18,32 +18,21 @@
  *    https://drewnoakes.com/code/exif/
  *    https://github.com/drewnoakes/metadata-extractor
  */
-package com.drew.imaging;
+package com.drew.metadata
 
-import com.drew.lang.CompoundException;
-import org.jetbrains.annotations.Nullable;
+import com.drew.lang.CompoundException
 
 /**
- * An exception class thrown upon an unexpected condition that was fatal for the processing of an image.
+ * Base class for all metadata specific exceptions.
  *
  * @author Drew Noakes https://drewnoakes.com
  */
-public class ImageProcessingException extends CompoundException
-{
-    private static final long serialVersionUID = -9115669182209912676L;
+class MetadataException : CompoundException {
+  constructor(msg: String?) : super(msg) {}
+  constructor(exception: Throwable?) : super(exception) {}
+  constructor(msg: String?, innerException: Throwable?) : super(msg, innerException) {}
 
-    public ImageProcessingException(@Nullable String message)
-    {
-        super(message);
-    }
-
-    public ImageProcessingException(@Nullable String message, @Nullable Throwable cause)
-    {
-        super(message, cause);
-    }
-
-    public ImageProcessingException(@Nullable Throwable cause)
-    {
-        super(cause);
-    }
+  companion object {
+    private const val serialVersionUID = 8612756143363919682L
+  }
 }

@@ -18,33 +18,18 @@
  *    https://drewnoakes.com/code/exif/
  *    https://github.com/drewnoakes/metadata-extractor
  */
+package com.drew.lang
 
-package com.drew.imaging.riff;
-
-import com.drew.imaging.ImageProcessingException;
-import org.jetbrains.annotations.Nullable;
+import java.io.IOException
+import java.io.OutputStream
 
 /**
- * An exception class thrown upon unexpected and fatal conditions while processing a RIFF file.
+ * An implementation of OutputSteam that ignores write requests by doing nothing.  This class may be useful in tests.
  *
  * @author Drew Noakes https://drewnoakes.com
  */
-public class RiffProcessingException extends ImageProcessingException
-{
-    private static final long serialVersionUID = -1658134596321487960L;
-
-    public RiffProcessingException(@Nullable String message)
-    {
-        super(message);
-    }
-
-    public RiffProcessingException(@Nullable String message, @Nullable Throwable cause)
-    {
-        super(message, cause);
-    }
-
-    public RiffProcessingException(@Nullable Throwable cause)
-    {
-        super(cause);
-    }
+class NullOutputStream : OutputStream() {
+  @Throws(IOException::class)
+  override fun write(b: Int) { // do nothing
+  }
 }
