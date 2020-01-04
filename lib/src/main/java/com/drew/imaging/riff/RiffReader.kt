@@ -54,7 +54,7 @@ class RiffReader {
     val fileFourCC = reader.getString(4)
     if (fileFourCC != "RIFF") throw RiffProcessingException("Invalid RIFF header: $fileFourCC")
     // The total size of the chunks that follow plus 4 bytes for the FourCC
-    val fileSize = reader.int32
+    val fileSize = reader.getInt32()
     var sizeLeft = fileSize
     val identifier = reader.getString(4)
     sizeLeft -= 4
@@ -67,7 +67,7 @@ class RiffReader {
   fun processChunks(reader: SequentialReader, sectionSize: Int, handler: RiffHandler) {
     while (reader.position < sectionSize) {
       val fourCC = String(reader.getBytes(4))
-      val size = reader.int32
+      val size = reader.getInt32()
       if (fourCC == "LIST" || fourCC == "RIFF") {
         val listName = String(reader.getBytes(4))
         if (handler.shouldAcceptList(listName)) {

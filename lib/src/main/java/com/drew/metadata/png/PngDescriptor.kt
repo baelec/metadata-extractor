@@ -101,9 +101,9 @@ class PngDescriptor(directory: PngDirectory) : TagDescriptor<PngDirectory>(direc
       val reader: SequentialReader = SequentialByteArrayReader(bytes)
       try { // TODO do we need to normalise these based upon the bit depth?
         when (bytes.size) {
-          1 -> return "Palette Index %d".format(reader.uInt8)
-          2 -> return "Greyscale Level %d".format(reader.uInt16)
-          6 -> return "R %d, G %d, B %d".format(reader.uInt16, reader.uInt16, reader.uInt16)
+          1 -> return "Palette Index %d".format(reader.getUInt8())
+          2 -> return "Greyscale Level %d".format(reader.getUInt16())
+          6 -> return "R %d, G %d, B %d".format(reader.getUInt16(), reader.getUInt16(), reader.getUInt16())
         }
       } catch (ex: IOException) {
         return null
