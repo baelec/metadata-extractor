@@ -27,6 +27,9 @@ import java.text.DecimalFormat
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
+import kotlin.math.exp
+import kotlin.math.ln
+import kotlin.math.roundToLong
 
 /**
  * Base class for all tag descriptor classes.  Implementations are responsible for
@@ -47,17 +50,17 @@ open class TagDescriptor<T : Directory>(@JvmField protected val _directory: T) {
    * `null` if the tag hasn't been defined.
    */
   open fun getDescription(tagType: Int): String? {
-    val `object` = _directory.getObject(tagType) ?: return null
+    val obj = _directory.getObject(tagType) ?: return null
     // special presentation for long arrays
-    if (`object`.javaClass.isArray) {
-      val length = java.lang.reflect.Array.getLength(`object`)
+    if (obj.javaClass.isArray) {
+      val length = java.lang.reflect.Array.getLength(obj)
       if (length > 16) {
         return "[%d values]".format(length)
       }
     }
-    return if (`object` is Date) { // Produce a date string having a format that includes the offset in form "+00:00"
+    return if (obj is Date) { // Produce a date string having a format that includes the offset in form "+00:00"
       SimpleDateFormat("EEE MMM dd HH:mm:ss Z yyyy")
-        .format(`object`)
+        .format(obj)
         .replace("([0-9]{2} [^ ]+)$".toRegex(), ":$1")
     } else _directory.getString(tagType)
     // no special handling required, so use default conversion to a string
@@ -211,14 +214,14 @@ open class TagDescriptor<T : Directory>(@JvmField protected val _directory: T) {
 // thanks also to Gli Blr for spotting this bug
     val apexValue = _directory.getFloatObject(tag) ?: return null
     return if (apexValue <= 1) {
-      val apexPower = (1 / Math.exp(apexValue * Math.log(2.0))).toFloat()
-      val apexPower10 = Math.round(apexPower.toDouble() * 10.0)
+      val apexPower = (1 / exp(apexValue * ln(2.0))).toFloat()
+      val apexPower10 = (apexPower.toDouble() * 10.0).roundToLong()
       val fApexPower = apexPower10.toFloat() / 10.0f
       val format = DecimalFormat("0.##")
       format.roundingMode = RoundingMode.HALF_UP
       format.format(fApexPower.toDouble()) + " sec"
     } else {
-      val apexPower = Math.exp(apexValue * Math.log(2.0)).toInt()
+      val apexPower = exp(apexValue * ln(2.0)).toInt()
       "1/$apexPower sec"
     }
     /*

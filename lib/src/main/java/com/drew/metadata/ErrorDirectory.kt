@@ -18,58 +18,36 @@
  *    https://drewnoakes.com/code/exif/
  *    https://github.com/drewnoakes/metadata-extractor
  */
-package com.drew.metadata;
+package com.drew.metadata
 
-import org.jetbrains.annotations.NotNull;
-import java.util.*;
+import java.util.*
 
 /**
  * A directory to use for the reporting of errors. No values may be added to this directory, only warnings and errors.
  *
  * @author Drew Noakes https://drewnoakes.com
  */
+class ErrorDirectory : Directory {
+  constructor()
+  constructor(error: String) {
+    super.addError(error)
+  }
 
-public final class ErrorDirectory extends Directory
-{
+  override val name: String
+    get() = "Error"
 
-    public ErrorDirectory()
-    {}
+  override val tagNameMap: HashMap<Int, String>
+    get() = HashMap()
 
-    public ErrorDirectory(String error)
-    {
-        super.addError(error);
-    }
+  override fun getTagName(tagType: Int): String {
+    return ""
+  }
 
-    @Override
-    @NotNull
-    public String getName()
-    {
-        return "Error";
-    }
+  override fun hasTagName(tagType: Int): Boolean {
+    return false
+  }
 
-    @Override
-    @NotNull
-    protected HashMap<Integer, String> getTagNameMap()
-    {
-        return new HashMap<Integer, String>();
-    }
-
-    @Override
-    @NotNull
-    public String getTagName(int tagType)
-    {
-        return "";
-    }
-
-    @Override
-    public boolean hasTagName(int tagType)
-    {
-        return false;
-    }
-
-    @Override
-    public void setObject(int tagType, @NotNull Object value)
-    {
-        throw new UnsupportedOperationException(String.format("Cannot add value to %s.", ErrorDirectory.class.getName()));
-    }
+  override fun setObject(tagType: Int, value: Any) {
+    throw UnsupportedOperationException("Cannot add value to %s.".format(ErrorDirectory::class.java.name))
+  }
 }

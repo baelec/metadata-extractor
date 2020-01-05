@@ -20,19 +20,25 @@
  */
 package com.drew.metadata
 
-import com.drew.lang.CompoundException
+import java.io.UnsupportedEncodingException
+import java.nio.charset.Charset
 
 /**
- * Base class for all metadata specific exceptions.
- *
  * @author Drew Noakes https://drewnoakes.com
  */
-class MetadataException : CompoundException {
-  constructor(msg: String?) : super(msg) {}
-  constructor(exception: Throwable?) : super(exception) {}
-  constructor(msg: String?, innerException: Throwable?) : super(msg, innerException)
+class StringValue(val bytes: ByteArray, val charset: Charset?) {
+  override fun toString(): String {
+    return toString(charset)
+  }
 
-  companion object {
-    private const val serialVersionUID = 8612756143363919682L
+  fun toString(charset: Charset?): String {
+    if (charset != null) {
+      try {
+        return String(bytes, charset)
+      } catch (ex: UnsupportedEncodingException) {
+        // fall through
+      }
+    }
+    return String(bytes)
   }
 }
