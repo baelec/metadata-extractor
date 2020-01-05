@@ -18,35 +18,40 @@
  *    https://drewnoakes.com/code/exif/
  *    https://github.com/drewnoakes/metadata-extractor
  */
-package com.drew.imaging.png;
+package com.drew.imaging.png
 
-import org.jetbrains.annotations.NotNull;
+import com.drew.lang.SequentialByteArrayReader
+import java.io.IOException
 
 /**
  * @author Drew Noakes https://drewnoakes.com
  */
-public class PngChunk
-{
-    @NotNull
-    private final PngChunkType _chunkType;
-    @NotNull
-    private final byte[] _bytes;
+class PngChromaticities(bytes: ByteArray) {
+  var whitePointX = 0
+  var whitePointY = 0
+  var redX = 0
+  var redY = 0
+  var greenX = 0
+  var greenY = 0
+  var blueX = 0
+  var blueY = 0
 
-    public PngChunk(@NotNull PngChunkType chunkType, @NotNull byte[] bytes)
-    {
-        _chunkType = chunkType;
-        _bytes = bytes;
+  init {
+    if (bytes.size != 8 * 4) {
+      throw PngProcessingException("Invalid number of bytes")
     }
-
-    @NotNull
-    public PngChunkType getType()
-    {
-        return _chunkType;
+    val reader = SequentialByteArrayReader(bytes)
+    try {
+      whitePointX = reader.getInt32()
+      whitePointY = reader.getInt32()
+      redX = reader.getInt32()
+      redY = reader.getInt32()
+      greenX = reader.getInt32()
+      greenY = reader.getInt32()
+      blueX = reader.getInt32()
+      blueY = reader.getInt32()
+    } catch (ex: IOException) {
+      throw PngProcessingException(ex)
     }
-
-    @NotNull
-    public byte[] getBytes()
-    {
-        return _bytes;
-    }
+  }
 }
