@@ -36,8 +36,9 @@ object Mp4Dictionary {
   }
 
   fun setLookup(scope: Int, lookup: String?, directory: Mp4Directory) {
-    val results = lookup(scope, lookup)
-    directory.setString(scope, results!!)
+    lookup(scope, lookup)?.let {
+      directory.setString(scope, it)
+    }
   }
 
   init {

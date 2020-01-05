@@ -51,7 +51,7 @@ interface TiffHandler {
   fun tryCustomProcessFormat(tagId: Int, formatCode: Int, componentCount: Long): Long?
   @Throws(IOException::class)
   fun customProcessTag(tagOffset: Int,
-                       processedIfdOffsets: Set<Int?>,
+                       processedIfdOffsets: Set<Int>,
                        tiffHeaderOffset: Int,
                        reader: RandomAccessReader,
                        tagId: Int,

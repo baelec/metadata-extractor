@@ -75,13 +75,13 @@ public class JpegDhtReader implements JpegSegmentMetadataReader
                     vCount += (b & 0xFF);
                 }
                 byte[] vBytes = getBytes(reader, vCount);
-                directory.getTables().add(new HuffmanTable(tableClass, tableDestinationId, lBytes, vBytes));
+                directory.tables.add(new HuffmanTable(tableClass, tableDestinationId, lBytes, vBytes));
             }
         } catch (IOException me) {
             directory.addError(me.getMessage());
         }
 
-        directory.setInt(HuffmanTablesDirectory.TAG_NUMBER_OF_TABLES, directory.getTables().size());
+        directory.setInt(HuffmanTablesDirectory.TAG_NUMBER_OF_TABLES, directory.tables.size());
     }
 
     private byte[] getBytes(@NotNull final SequentialReader reader, int count) throws IOException {

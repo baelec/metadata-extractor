@@ -101,10 +101,11 @@ fun process(metadata: Metadata, inputStream: InputStream, readers: Iterable<Jpeg
   processJpegSegmentData(metadata, readers, segmentData)
 }
 
-private fun processJpegSegmentData(metadata: Metadata?, readers: Iterable<JpegSegmentMetadataReader>?, segmentData: JpegSegmentData) { // Pass the appropriate byte arrays to each reader.
-  for (reader in readers!!) {
+private fun processJpegSegmentData(metadata: Metadata, readers: Iterable<JpegSegmentMetadataReader>, segmentData: JpegSegmentData) {
+  // Pass the appropriate byte arrays to each reader.
+  for (reader in readers) {
     for (segmentType in reader.segmentTypes) {
-      reader.readJpegSegments(segmentData.getSegments(segmentType), metadata!!, segmentType)
+      reader.readJpegSegments(segmentData.getSegments(segmentType), metadata, segmentType)
     }
   }
 }

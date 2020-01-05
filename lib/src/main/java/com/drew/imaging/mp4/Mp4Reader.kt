@@ -43,7 +43,7 @@ object Mp4Reader {
       while (atomEnd == -1L || reader.position < atomEnd) {
         val box = Box(reader)
         // Determine if fourCC is container/atom and process accordingly.
-// Unknown atoms will be skipped
+        // Unknown atoms will be skipped
         if (handler.shouldAcceptContainer(box)) {
           processBoxes(reader, box.size + reader.position - 8, handler.processContainer(box, context), context)
         } else if (handler.shouldAcceptBox(box)) {
@@ -57,7 +57,9 @@ object Mp4Reader {
         }
       }
     } catch (e: IOException) {
-      handler.addError(e.message!!)
+      e.message?.let {
+        handler.addError(it)
+      }
     }
   }
 }

@@ -847,14 +847,13 @@ abstract class Directory protected constructor() {
    */
   open fun getTagName(tagType: Int): String {
     val nameMap = tagNameMap
-    if (!nameMap.containsKey(tagType)) {
+    return nameMap.getOrElse(tagType, {
       var hex = Integer.toHexString(tagType)
       while (hex.length < 4) {
         hex = "0$hex"
       }
-      return "Unknown tag (0x$hex)"
-    }
-    return nameMap[tagType]!!
+      "Unknown tag (0x$hex)"
+    })
   }
 
   /**
@@ -876,7 +875,7 @@ abstract class Directory protected constructor() {
    */
   fun getDescription(tagType: Int): String? {
     assert(_descriptor != null)
-    return _descriptor!!.getDescription(tagType)
+    return _descriptor?.getDescription(tagType)
   }
 
   override fun toString(): String {

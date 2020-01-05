@@ -58,7 +58,7 @@ public class XmpReaderTest
     @Test
     public void testExtract_HasXMPMeta() throws Exception
     {
-        assertNotNull(_directory.getXMPMeta());
+        assertNotNull(_directory.getXmpMeta());
     }
 
     @Test

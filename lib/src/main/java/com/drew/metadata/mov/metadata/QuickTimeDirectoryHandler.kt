@@ -68,7 +68,9 @@ class QuickTimeDirectoryHandler(metadata: Metadata) : QuickTimeMetadataHandler(m
     // 4 bytes: locale indicator
     reader.skip(8)
     val value = String(reader.getBytes(payload.size - 8))
-    directory.setString(QuickTimeMetadataDirectory._tagIntegerMap[currentData]!!, value)
+    QuickTimeMetadataDirectory._tagIntegerMap[currentData]?.let {
+      directory.setString(it, value)
+    }
   }
 
   @Throws(IOException::class)

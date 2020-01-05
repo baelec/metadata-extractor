@@ -138,14 +138,7 @@ class JpegSegmentData {
   }
 
   private fun getOrCreateSegmentList(segmentType: Byte): MutableList<ByteArray> {
-    val segmentList: MutableList<ByteArray>
-    if (_segmentDataMap.containsKey(segmentType)) {
-      segmentList = _segmentDataMap[segmentType]!!
-    } else {
-      segmentList = ArrayList()
-      _segmentDataMap[segmentType] = segmentList
-    }
-    return segmentList
+    return _segmentDataMap.getOrPut(segmentType, { ArrayList() })
   }
 
   /**
@@ -188,8 +181,8 @@ class JpegSegmentData {
    * @param occurrence  the zero-based index of the segment occurrence to remove.
    */
   fun removeSegmentOccurrence(segmentType: Byte, occurrence: Int) {
-    val segmentList = _segmentDataMap[segmentType]!!
-    segmentList.removeAt(occurrence)
+    val segmentList = _segmentDataMap[segmentType]
+    segmentList?.removeAt(occurrence)
   }
 
   /**

@@ -124,7 +124,9 @@ class AviRiffHandler(metadata: Metadata) : RiffHandler {
         _directory.setString(AviDirectory.TAG_DATETIME_ORIGINAL, str)
       }
     } catch (ex: IOException) {
-      _directory.addError(ex.message!!)
+      ex.message?.let {
+        _directory.addError(it)
+      }
     }
   }
 

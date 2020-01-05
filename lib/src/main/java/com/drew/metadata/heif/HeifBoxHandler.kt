@@ -34,13 +34,13 @@ import java.util.*
 /**
  * @author Payton Garland
  */
-class HeifBoxHandler(metadata: Metadata?) : HeifHandler<HeifDirectory>(metadata!!) {
+class HeifBoxHandler(metadata: Metadata) : HeifHandler<HeifDirectory>(metadata) {
   var handlerBox: HandlerBox? = null
   private val handlerFactory = HeifHandlerFactory(this)
   override val directory = HeifDirectory()
 
   override fun shouldAcceptBox(box: Box): Boolean {
-    val boxes = Arrays.asList(HeifBoxTypes.BOX_FILE_TYPE,
+    val boxes = listOf(HeifBoxTypes.BOX_FILE_TYPE,
       HeifBoxTypes.BOX_HANDLER,
       HeifBoxTypes.BOX_HVC1)
     return boxes.contains(box.type)

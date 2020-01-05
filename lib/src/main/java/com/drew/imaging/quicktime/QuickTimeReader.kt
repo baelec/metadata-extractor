@@ -55,7 +55,9 @@ object QuickTimeReader {
         }
       }
     } catch (e: IOException) {
-      handler.addError(e.message!!)
+      e.message?.let {
+        handler.addError(it)
+      }
     }
   }
 }

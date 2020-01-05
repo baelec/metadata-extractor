@@ -31,7 +31,7 @@ import java.util.*
 /**
  * @author Payton Garland
  */
-class HeifPictureHandler(metadata: Metadata?) : HeifHandler<HeifDirectory>(metadata!!) {
+class HeifPictureHandler(metadata: Metadata) : HeifHandler<HeifDirectory>(metadata) {
   var itemProtectionBox: ItemProtectionBox? = null
   var primaryItemBox: PrimaryItemBox? = null
   var itemInfoBox: ItemInfoBox? = null
@@ -64,8 +64,9 @@ class HeifPictureHandler(metadata: Metadata?) : HeifHandler<HeifDirectory>(metad
         primaryItemBox = PrimaryItemBox(reader, box)
       }
       HeifBoxTypes.BOX_ITEM_INFO -> {
-        itemInfoBox = ItemInfoBox(reader, box)
-        itemInfoBox!!.addMetadata(directory)
+        itemInfoBox = ItemInfoBox(reader, box).also {
+          it.addMetadata(directory)
+        }
       }
       HeifBoxTypes.BOX_ITEM_LOCATION -> {
         itemLocationBox = ItemLocationBox(reader, box)
