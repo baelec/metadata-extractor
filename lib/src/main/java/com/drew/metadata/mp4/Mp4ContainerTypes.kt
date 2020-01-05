@@ -18,34 +18,25 @@
  *    https://drewnoakes.com/code/exif/
  *    https://github.com/drewnoakes/metadata-extractor
  */
-package com.drew.imaging.mp4
+package com.drew.metadata.mp4
 
-import com.drew.metadata.Metadata
-import com.drew.metadata.mp4.Mp4Context
-import com.drew.metadata.mp4.Mp4Directory
-import com.drew.metadata.mp4.boxes.Box
-import java.io.IOException
+import java.util.*
 
 /**
  * @author Payton Garland
  */
-abstract class Mp4Handler<T : Mp4Directory>(protected var metadata: Metadata) {
-  protected abstract val directory: T
-  abstract fun shouldAcceptBox(box: Box): Boolean
-  abstract fun shouldAcceptContainer(box: Box): Boolean
-  @Throws(IOException::class)
-  abstract fun processBox(box: Box, payload: ByteArray?, context: Mp4Context): Mp4Handler<*>
-
-  @Throws(IOException::class)
-  fun processContainer(box: Box, context: Mp4Context): Mp4Handler<*> {
-    return processBox(box, null, context)
-  }
-
-  fun addError(message: String) {
-    directory.addError(message)
-  }
-
-  init {
-    metadata.addDirectory(directory)
-  }
+object Mp4ContainerTypes {
+  const val BOX_MOVIE = "moov"
+  const val BOX_USER_DATA = "udta"
+  const val BOX_TRACK = "trak"
+  const val BOX_MEDIA = "mdia"
+  const val BOX_MEDIA_INFORMATION = "minf"
+  const val BOX_SAMPLE_TABLE = "stbl"
+  const val BOX_METADATA_LIST = "ilst"
+  const val BOX_METADATA = "meta"
+  const val BOX_COMPRESSED_MOVIE = "cmov"
+  const val BOX_MEDIA_TEXT = "text"
+  const val BOX_MEDIA_SUBTITLE = "sbtl"
+  const val BOX_MEDIA_NULL = "nmhd"
+  //private val _containerList = listOf(BOX_MOVIE, BOX_USER_DATA, BOX_TRACK, BOX_MEDIA, BOX_MEDIA_INFORMATION, BOX_SAMPLE_TABLE, BOX_METADATA, BOX_METADATA_LIST, BOX_COMPRESSED_MOVIE, BOX_MEDIA_TEXT, BOX_MEDIA_SUBTITLE, BOX_MEDIA_NULL)
 }

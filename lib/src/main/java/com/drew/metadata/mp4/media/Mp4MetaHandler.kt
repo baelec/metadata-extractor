@@ -18,34 +18,32 @@
  *    https://drewnoakes.com/code/exif/
  *    https://github.com/drewnoakes/metadata-extractor
  */
-package com.drew.imaging.mp4
+package com.drew.metadata.mp4.media
 
+import com.drew.lang.SequentialReader
 import com.drew.metadata.Metadata
+import com.drew.metadata.mp4.Mp4ContainerTypes
 import com.drew.metadata.mp4.Mp4Context
-import com.drew.metadata.mp4.Mp4Directory
+import com.drew.metadata.mp4.Mp4MediaHandler
 import com.drew.metadata.mp4.boxes.Box
 import java.io.IOException
 
-/**
- * @author Payton Garland
- */
-abstract class Mp4Handler<T : Mp4Directory>(protected var metadata: Metadata) {
-  protected abstract val directory: T
-  abstract fun shouldAcceptBox(box: Box): Boolean
-  abstract fun shouldAcceptContainer(box: Box): Boolean
-  @Throws(IOException::class)
-  abstract fun processBox(box: Box, payload: ByteArray?, context: Mp4Context): Mp4Handler<*>
+class Mp4MetaHandler(metadata: Metadata, context: Mp4Context) : Mp4MediaHandler<Mp4MetaDirectory>(metadata, context) {
+  override val directory: Mp4MetaDirectory
+    get() = Mp4MetaDirectory()
+
+  override val mediaInformation: String
+    get() = Mp4ContainerTypes.BOX_MEDIA_NULL
 
   @Throws(IOException::class)
-  fun processContainer(box: Box, context: Mp4Context): Mp4Handler<*> {
-    return processBox(box, null, context)
+  override fun processSampleDescription(reader: SequentialReader, box: Box) {
   }
 
-  fun addError(message: String) {
-    directory.addError(message)
+  @Throws(IOException::class)
+  override fun processMediaInformation(reader: SequentialReader, box: Box) {
   }
 
-  init {
-    metadata.addDirectory(directory)
+  @Throws(IOException::class)
+  override fun processTimeToSample(reader: SequentialReader, box: Box, context: Mp4Context) {
   }
 }

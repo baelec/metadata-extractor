@@ -18,34 +18,24 @@
  *    https://drewnoakes.com/code/exif/
  *    https://github.com/drewnoakes/metadata-extractor
  */
-package com.drew.imaging.mp4
+package com.drew.metadata.mp4
 
-import com.drew.metadata.Metadata
-import com.drew.metadata.mp4.Mp4Context
-import com.drew.metadata.mp4.Mp4Directory
-import com.drew.metadata.mp4.boxes.Box
-import java.io.IOException
+import java.util.*
 
 /**
  * @author Payton Garland
  */
-abstract class Mp4Handler<T : Mp4Directory>(protected var metadata: Metadata) {
-  protected abstract val directory: T
-  abstract fun shouldAcceptBox(box: Box): Boolean
-  abstract fun shouldAcceptContainer(box: Box): Boolean
-  @Throws(IOException::class)
-  abstract fun processBox(box: Box, payload: ByteArray?, context: Mp4Context): Mp4Handler<*>
-
-  @Throws(IOException::class)
-  fun processContainer(box: Box, context: Mp4Context): Mp4Handler<*> {
-    return processBox(box, null, context)
-  }
-
-  fun addError(message: String) {
-    directory.addError(message)
-  }
-
-  init {
-    metadata.addDirectory(directory)
-  }
+object Mp4BoxTypes {
+  const val BOX_FILE_TYPE = "ftyp"
+  const val BOX_MOVIE_HEADER = "mvhd"
+  const val BOX_VIDEO_MEDIA_INFO = "vmhd"
+  const val BOX_SOUND_MEDIA_INFO = "smhd"
+  const val BOX_HINT_MEDIA_INFO = "hmhd"
+  const val BOX_NULL_MEDIA_INFO = "nmhd"
+  const val BOX_HANDLER = "hdlr"
+  const val BOX_SAMPLE_DESCRIPTION = "stsd"
+  const val BOX_TIME_TO_SAMPLE = "stts"
+  const val BOX_MEDIA_HEADER = "mdhd"
+  const val BOX_TRACK_HEADER = "tkhd"
+  //private val _boxList = listOf(BOX_FILE_TYPE, BOX_MOVIE_HEADER, BOX_VIDEO_MEDIA_INFO, BOX_SOUND_MEDIA_INFO, BOX_HINT_MEDIA_INFO, BOX_NULL_MEDIA_INFO, BOX_HANDLER, BOX_SAMPLE_DESCRIPTION, BOX_TIME_TO_SAMPLE, BOX_MEDIA_HEADER, BOX_TRACK_HEADER)
 }

@@ -47,6 +47,6 @@ class Mp4HintHandler(metadata: Metadata, context: Mp4Context) : Mp4MediaHandler<
   }
 
   @Throws(IOException::class)
-  override fun processTimeToSample(reader: SequentialReader, box: Box, context: Mp4Context?) {
+  override fun processTimeToSample(reader: SequentialReader, box: Box, context: Mp4Context) {
   }
 }

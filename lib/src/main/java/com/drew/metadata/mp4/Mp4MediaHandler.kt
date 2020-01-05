@@ -39,7 +39,7 @@ abstract class Mp4MediaHandler<T : Mp4MediaDirectory>(metadata: Metadata, contex
   }
 
   @Throws(IOException::class)
-  override fun processBox(box: Box, payload: ByteArray?, context: Mp4Context?): Mp4Handler<*> {
+  override fun processBox(box: Box, payload: ByteArray?, context: Mp4Context): Mp4Handler<*> {
     if (payload != null) {
       val reader: SequentialReader = SequentialByteArrayReader(payload)
       when (box.type) {
@@ -65,19 +65,23 @@ abstract class Mp4MediaHandler<T : Mp4MediaDirectory>(metadata: Metadata, contex
   protected abstract fun processMediaInformation(reader: SequentialReader, box: Box)
 
   @Throws(IOException::class)
-  protected abstract fun processTimeToSample(reader: SequentialReader, box: Box, context: Mp4Context?)
+  protected abstract fun processTimeToSample(reader: SequentialReader, box: Box, context: Mp4Context)
 
   init {
-    if (context.creationTime != null && context.modificationTime != null) { // Get creation/modification times
+    context.creationTime?.let {
       directory.setDate(
         Mp4MediaDirectory.TAG_CREATION_TIME,
-        get1Jan1904EpochDate(context.creationTime)
+        get1Jan1904EpochDate(it)
       )
+    }
+    context.modificationTime?.let {
       directory.setDate(
         Mp4MediaDirectory.TAG_MODIFICATION_TIME,
-        get1Jan1904EpochDate(context.modificationTime)
+        get1Jan1904EpochDate(it)
       )
-      directory.setString(Mp4MediaDirectory.TAG_LANGUAGE_CODE, context.language)
+    }
+    context.language?.let {
+      directory.setString(Mp4MediaDirectory.TAG_LANGUAGE_CODE, it)
     }
   }
 }

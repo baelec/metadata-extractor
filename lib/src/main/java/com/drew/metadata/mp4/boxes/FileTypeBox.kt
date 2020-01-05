@@ -18,34 +18,30 @@
  *    https://drewnoakes.com/code/exif/
  *    https://github.com/drewnoakes/metadata-extractor
  */
-package com.drew.imaging.mp4
+package com.drew.metadata.mp4.boxes
 
-import com.drew.metadata.Metadata
-import com.drew.metadata.mp4.Mp4Context
+import com.drew.lang.SequentialReader
 import com.drew.metadata.mp4.Mp4Directory
-import com.drew.metadata.mp4.boxes.Box
-import java.io.IOException
+import java.util.*
 
 /**
- * @author Payton Garland
+ * ISO/IED 14496-12:2015 pg.8
  */
-abstract class Mp4Handler<T : Mp4Directory>(protected var metadata: Metadata) {
-  protected abstract val directory: T
-  abstract fun shouldAcceptBox(box: Box): Boolean
-  abstract fun shouldAcceptContainer(box: Box): Boolean
-  @Throws(IOException::class)
-  abstract fun processBox(box: Box, payload: ByteArray?, context: Mp4Context): Mp4Handler<*>
-
-  @Throws(IOException::class)
-  fun processContainer(box: Box, context: Mp4Context): Mp4Handler<*> {
-    return processBox(box, null, context)
-  }
-
-  fun addError(message: String) {
-    directory.addError(message)
+class FileTypeBox(reader: SequentialReader, box: Box) : Box(box) {
+  var majorBrand: String = reader.getString(4)
+  var minorVersion: Long = reader.getUInt32()
+  var compatibleBrands: ArrayList<String?> = ArrayList()
+  fun addMetadata(directory: Mp4Directory) {
+    directory.setString(Mp4Directory.TAG_MAJOR_BRAND, majorBrand)
+    directory.setLong(Mp4Directory.TAG_MINOR_VERSION, minorVersion)
+    directory.setStringArray(Mp4Directory.TAG_COMPATIBLE_BRANDS, compatibleBrands.toTypedArray())
   }
 
   init {
-    metadata.addDirectory(directory)
+    var i = 16
+    while (i < size) {
+      compatibleBrands.add(reader.getString(4))
+      i += 4
+    }
   }
 }

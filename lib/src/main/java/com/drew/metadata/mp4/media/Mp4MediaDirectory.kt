@@ -18,34 +18,23 @@
  *    https://drewnoakes.com/code/exif/
  *    https://github.com/drewnoakes/metadata-extractor
  */
-package com.drew.imaging.mp4
+package com.drew.metadata.mp4.media
 
-import com.drew.metadata.Metadata
-import com.drew.metadata.mp4.Mp4Context
 import com.drew.metadata.mp4.Mp4Directory
-import com.drew.metadata.mp4.boxes.Box
-import java.io.IOException
+import java.util.*
 
-/**
- * @author Payton Garland
- */
-abstract class Mp4Handler<T : Mp4Directory>(protected var metadata: Metadata) {
-  protected abstract val directory: T
-  abstract fun shouldAcceptBox(box: Box): Boolean
-  abstract fun shouldAcceptContainer(box: Box): Boolean
-  @Throws(IOException::class)
-  abstract fun processBox(box: Box, payload: ByteArray?, context: Mp4Context): Mp4Handler<*>
-
-  @Throws(IOException::class)
-  fun processContainer(box: Box, context: Mp4Context): Mp4Handler<*> {
-    return processBox(box, null, context)
-  }
-
-  fun addError(message: String) {
-    directory.addError(message)
-  }
-
-  init {
-    metadata.addDirectory(directory)
+abstract class Mp4MediaDirectory : Mp4Directory() {
+  companion object {
+    const val TAG_CREATION_TIME = 101
+    const val TAG_MODIFICATION_TIME = 102
+    const val TAG_DURATION = 103
+    const val TAG_LANGUAGE_CODE = 104
+    @JvmStatic
+    protected fun addMp4MediaTags(map: HashMap<Int, String>) {
+      map[TAG_CREATION_TIME] = "Creation Time"
+      map[TAG_MODIFICATION_TIME] = "Modification Time"
+      map[TAG_DURATION] = "Duration"
+      map[TAG_LANGUAGE_CODE] = "ISO 639-2 Language Code"
+    }
   }
 }

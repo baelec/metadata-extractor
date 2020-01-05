@@ -43,7 +43,7 @@ class Mp4BoxHandler(metadata: Metadata) : Mp4Handler<Mp4Directory>(metadata) {
   }
 
   @Throws(IOException::class)
-  override fun processBox(box: Box, payload: ByteArray?, context: Mp4Context?): Mp4Handler<*> {
+  override fun processBox(box: Box, payload: ByteArray?, context: Mp4Context): Mp4Handler<*> {
     if (payload != null) {
       val reader: SequentialReader = SequentialByteArrayReader(payload)
       when (box.type) {
@@ -85,7 +85,7 @@ class Mp4BoxHandler(metadata: Metadata) : Mp4Handler<Mp4Directory>(metadata) {
   }
 
   @Throws(IOException::class)
-  private fun processMediaHeader(reader: SequentialReader, box: Box, context: Mp4Context?) {
+  private fun processMediaHeader(reader: SequentialReader, box: Box, context: Mp4Context) {
     MediaHeaderBox(reader, box, context)
   }
 

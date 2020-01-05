@@ -51,7 +51,7 @@ class Mp4VideoHandler(metadata: Metadata, context: Mp4Context) : Mp4MediaHandler
   }
 
   @Throws(IOException::class)
-  public override fun processTimeToSample(reader: SequentialReader, box: Box, context: Mp4Context?) {
+  public override fun processTimeToSample(reader: SequentialReader, box: Box, context: Mp4Context) {
     val timeToSampleBox = TimeToSampleBox(reader, box)
     timeToSampleBox.addMetadata(directory, context)
   }
