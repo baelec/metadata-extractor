@@ -18,11 +18,9 @@
  *    https://drewnoakes.com/code/exif/
  *    https://github.com/drewnoakes/metadata-extractor
  */
-package com.drew.metadata.exif;
+package com.drew.metadata.exif
 
-import org.jetbrains.annotations.NotNull;
-
-import java.util.HashMap;
+import java.util.*
 
 /**
  * Describes One of several Exif directories.
@@ -32,33 +30,21 @@ import java.util.HashMap;
  *
  * @author Drew Noakes https://drewnoakes.com
  */
-@SuppressWarnings("WeakerAccess")
-public class ExifImageDirectory extends ExifDirectoryBase
-{
-    @NotNull
-    private static final HashMap<Integer, String> _tagNameMap = new HashMap<Integer, String>();
+class ExifImageDirectory : ExifDirectoryBase() {
+  override val tagNameMap = Companion.tagNameMap
 
-    static
-    {
-        addExifTagNames(_tagNameMap);
-    }
+  companion object {
+    protected val tagNameMap = HashMap<Int, String>()
 
-    public ExifImageDirectory()
-    {
-        this.setDescriptor(new ExifImageDescriptor(this));
+    init {
+      addExifTagNames(tagNameMap)
     }
+  }
 
-    @Override
-    @NotNull
-    public String getName()
-    {
-        return "Exif Image";
-    }
+  override val name: String
+    get() = "Exif Image"
 
-    @Override
-    @NotNull
-    protected HashMap<Integer, String> getTagNameMap()
-    {
-        return _tagNameMap;
-    }
+  init {
+    setDescriptor(ExifImageDescriptor(this))
+  }
 }

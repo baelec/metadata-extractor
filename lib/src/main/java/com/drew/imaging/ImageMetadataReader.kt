@@ -29,6 +29,7 @@ import com.drew.lang.RandomAccessStreamReader
 import com.drew.lang.urlEncode
 import com.drew.metadata.Metadata
 import com.drew.metadata.MetadataException
+import com.drew.metadata.exif.ExifDirectoryBase
 import com.drew.metadata.exif.ExifIFD0Directory
 import com.drew.metadata.file.FileSystemMetadataReader
 import com.drew.metadata.file.FileTypeDirectory
@@ -202,8 +203,8 @@ fun main(args: Array<String>) {
       val fileName = file.name
       val urlName = urlEncode(filePath)
       val exifIFD0Directory = metadata.getFirstDirectoryOfType(ExifIFD0Directory::class.java)
-      val make = if (exifIFD0Directory == null) "" else exifIFD0Directory.getString(ExifIFD0Directory.TAG_MAKE)
-      val model = if (exifIFD0Directory == null) "" else exifIFD0Directory.getString(ExifIFD0Directory.TAG_MODEL)
+      val make = if (exifIFD0Directory == null) "" else exifIFD0Directory.getString(ExifDirectoryBase.TAG_MAKE)
+      val model = if (exifIFD0Directory == null) "" else exifIFD0Directory.getString(ExifDirectoryBase.TAG_MODEL)
       println()
       println("---")
       println()

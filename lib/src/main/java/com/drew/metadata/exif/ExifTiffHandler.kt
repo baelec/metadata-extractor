@@ -162,11 +162,11 @@ open class ExifTiffHandler(metadata: Metadata, parentDirectory: Directory?) : Di
       if (byteCount == 0) return true
     }
     // Custom processing for the Makernote tag
-    if (tagId == ExifSubIFDDirectory.TAG_MAKERNOTE && currentDirectory is ExifSubIFDDirectory) {
+    if (tagId == ExifDirectoryBase.TAG_MAKERNOTE && currentDirectory is ExifSubIFDDirectory) {
       return processMakernote(tagOffset, processedIfdOffsets, tiffHeaderOffset, reader)
     }
     // Custom processing for embedded IPTC data
-    if (tagId == ExifSubIFDDirectory.TAG_IPTC_NAA && currentDirectory is ExifIFD0Directory) { // NOTE Adobe sets type 4 for IPTC instead of 7
+    if (tagId == ExifDirectoryBase.TAG_IPTC_NAA && currentDirectory is ExifIFD0Directory) { // NOTE Adobe sets type 4 for IPTC instead of 7
       if (reader.getInt8(tagOffset).toInt() == 0x1c) {
         val iptcBytes = reader.getBytes(tagOffset, byteCount)
         IptcReader().extract(SequentialByteArrayReader(iptcBytes), _metadata, iptcBytes.size.toLong(), currentDirectory)
@@ -175,19 +175,19 @@ open class ExifTiffHandler(metadata: Metadata, parentDirectory: Directory?) : Di
       return false
     }
     // Custom processing for ICC Profile data
-    if (tagId == ExifSubIFDDirectory.TAG_INTER_COLOR_PROFILE) {
+    if (tagId == ExifDirectoryBase.TAG_INTER_COLOR_PROFILE) {
       val iccBytes = reader.getBytes(tagOffset, byteCount)
       IccReader().extract(ByteArrayReader(iccBytes), _metadata, currentDirectory)
       return true
     }
     // Custom processing for Photoshop data
-    if (tagId == ExifSubIFDDirectory.TAG_PHOTOSHOP_SETTINGS && currentDirectory is ExifIFD0Directory) {
+    if (tagId == ExifDirectoryBase.TAG_PHOTOSHOP_SETTINGS && currentDirectory is ExifIFD0Directory) {
       val photoshopBytes = reader.getBytes(tagOffset, byteCount)
       PhotoshopReader().extract(SequentialByteArrayReader(photoshopBytes), byteCount, _metadata, _currentDirectory)
       return true
     }
     // Custom processing for embedded XMP data
-    if (tagId == ExifSubIFDDirectory.TAG_APPLICATION_NOTES && currentDirectory is ExifIFD0Directory) {
+    if (tagId == ExifDirectoryBase.TAG_APPLICATION_NOTES && currentDirectory is ExifIFD0Directory) {
       XmpReader().extract(reader.getNullTerminatedBytes(tagOffset, byteCount), _metadata, _currentDirectory)
       return true
     }
@@ -300,7 +300,7 @@ open class ExifTiffHandler(metadata: Metadata, parentDirectory: Directory?) : Di
     val currentDirectory = _currentDirectory ?: return false
     // Determine the camera model and makernote format.
     val ifd0Directory: Directory? = _metadata.getFirstDirectoryOfType(ExifIFD0Directory::class.java)
-    val cameraMake = ifd0Directory?.getString(ExifIFD0Directory.TAG_MAKE)
+    val cameraMake = ifd0Directory?.getString(ExifDirectoryBase.TAG_MAKE)
     val firstTwoChars = getReaderString(reader, makernoteOffset, 2)
     val firstThreeChars = getReaderString(reader, makernoteOffset, 3)
     val firstFourChars = getReaderString(reader, makernoteOffset, 4)

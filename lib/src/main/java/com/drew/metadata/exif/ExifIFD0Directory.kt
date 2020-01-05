@@ -18,44 +18,34 @@
  *    https://drewnoakes.com/code/exif/
  *    https://github.com/drewnoakes/metadata-extractor
  */
-package com.drew.metadata.exif;
+package com.drew.metadata.exif
 
-import org.jetbrains.annotations.NotNull;
-
-import java.util.HashMap;
+import java.util.*
 
 /**
- * Describes Exif interoperability tags.
+ * Describes Exif tags from the IFD0 directory.
  *
  * @author Drew Noakes https://drewnoakes.com
  */
-@SuppressWarnings("WeakerAccess")
-public class ExifInteropDirectory extends ExifDirectoryBase
-{
-    @NotNull
-    private static final HashMap<Integer, String> _tagNameMap = new HashMap<Integer, String>();
+class ExifIFD0Directory : ExifDirectoryBase() {
+  override val tagNameMap = Companion.tagNameMap
 
-    static
-    {
-        addExifTagNames(_tagNameMap);
-    }
+  companion object {
+    /** This tag is a pointer to the Exif SubIFD.  */
+    const val TAG_EXIF_SUB_IFD_OFFSET = 0x8769
+    /** This tag is a pointer to the Exif GPS IFD.  */
+    const val TAG_GPS_INFO_OFFSET = 0x8825
+    protected val tagNameMap = HashMap<Int, String>()
 
-    public ExifInteropDirectory()
-    {
-        this.setDescriptor(new ExifInteropDescriptor(this));
+    init {
+      addExifTagNames(tagNameMap)
     }
+  }
 
-    @Override
-    @NotNull
-    public String getName()
-    {
-        return "Interoperability";
-    }
+  override val name: String
+    get() = "Exif IFD0"
 
-    @Override
-    @NotNull
-    protected HashMap<Integer, String> getTagNameMap()
-    {
-        return _tagNameMap;
-    }
+  init {
+    setDescriptor(ExifIFD0Descriptor(this))
+  }
 }

@@ -18,21 +18,34 @@
  *    https://drewnoakes.com/code/exif/
  *    https://github.com/drewnoakes/metadata-extractor
  */
+package com.drew.metadata.exif
 
-package com.drew.metadata.exif;
-
-import org.jetbrains.annotations.NotNull;
+import com.drew.metadata.Directory
+import java.util.*
 
 /**
- * Provides human-readable string representations of tag values stored in a {@link ExifIFD0Directory}.
+ * These tags can be found in Epson proprietary metadata. The index values are 'fake' but
+ * chosen specifically to make processing easier
  *
+ * @author Kevin Mott https://github.com/kwhopper
  * @author Drew Noakes https://drewnoakes.com
  */
-@SuppressWarnings("WeakerAccess")
-public class ExifIFD0Descriptor extends ExifDescriptorBase<ExifIFD0Directory>
-{
-    public ExifIFD0Descriptor(@NotNull ExifIFD0Directory directory)
-    {
-        super(directory);
+class PrintIMDirectory : Directory() {
+  override val tagNameMap = Companion.tagNameMap
+
+  companion object {
+    const val TagPrintImVersion = 0x0000
+    protected val tagNameMap = HashMap<Int, String>()
+
+    init {
+      tagNameMap[TagPrintImVersion] = "PrintIM Version"
     }
+  }
+
+  override val name: String
+    get() = "PrintIM"
+
+  init {
+    setDescriptor(PrintIMDescriptor(this))
+  }
 }

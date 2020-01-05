@@ -30,6 +30,7 @@ import com.drew.imaging.readMetadata
 import com.drew.lang.urlEncode
 import com.drew.metadata.Directory
 import com.drew.metadata.Metadata
+import com.drew.metadata.exif.ExifDirectoryBase
 import com.drew.metadata.exif.ExifIFD0Directory
 import com.drew.metadata.exif.ExifSubIFDDirectory
 import com.drew.metadata.exif.ExifThumbnailDirectory
@@ -397,17 +398,17 @@ internal class MarkdownTableOutputHandler : FileHandlerBase() {
       val subIfdDir = metadata.getFirstDirectoryOfType(ExifSubIFDDirectory::class.java)
       val thumbDir = metadata.getFirstDirectoryOfType(ExifThumbnailDirectory::class.java)
       if (ifd0Dir != null) {
-        manufacturer = ifd0Dir.getDescription(ExifIFD0Directory.TAG_MAKE)
-        model = ifd0Dir.getDescription(ExifIFD0Directory.TAG_MODEL)
+        manufacturer = ifd0Dir.getDescription(ExifDirectoryBase.TAG_MAKE)
+        model = ifd0Dir.getDescription(ExifDirectoryBase.TAG_MODEL)
       }
       var hasMakernoteData = false
       if (subIfdDir != null) {
-        exifVersion = subIfdDir.getDescription(ExifSubIFDDirectory.TAG_EXIF_VERSION)
-        hasMakernoteData = subIfdDir.containsTag(ExifSubIFDDirectory.TAG_MAKERNOTE)
+        exifVersion = subIfdDir.getDescription(ExifDirectoryBase.TAG_EXIF_VERSION)
+        hasMakernoteData = subIfdDir.containsTag(ExifDirectoryBase.TAG_MAKERNOTE)
       }
       if (thumbDir != null) {
-        val width = thumbDir.getInteger(ExifThumbnailDirectory.TAG_IMAGE_WIDTH)
-        val height = thumbDir.getInteger(ExifThumbnailDirectory.TAG_IMAGE_HEIGHT)
+        val width = thumbDir.getInteger(ExifDirectoryBase.TAG_IMAGE_WIDTH)
+        val height = thumbDir.getInteger(ExifDirectoryBase.TAG_IMAGE_HEIGHT)
         thumbnail = if (width != null && height != null) "Yes ($width x $height)" else "Yes"
       }
       for (directory in metadata.directories) {
