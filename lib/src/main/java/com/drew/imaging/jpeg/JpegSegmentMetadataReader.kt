@@ -19,5 +19,5 @@ interface JpegSegmentMetadataReader {
    * @param metadata The [Metadata] object into which extracted values should be merged.
    * @param segmentType The [JpegSegmentType] being read.
    */
-  fun readJpegSegments(segments: Iterable<ByteArray?>, metadata: Metadata, segmentType: JpegSegmentType)
+  fun readJpegSegments(segments: Iterable<ByteArray>, metadata: Metadata, segmentType: JpegSegmentType)
 }

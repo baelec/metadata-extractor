@@ -18,36 +18,22 @@
  *    https://drewnoakes.com/code/exif/
  *    https://github.com/drewnoakes/metadata-extractor
  */
-package com.drew.metadata.avi;
+package com.drew.metadata.avi
 
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
-import com.drew.metadata.TagDescriptor;
+import com.drew.metadata.TagDescriptor
 
 /**
  * @author Payton Garland
  */
-public class AviDescriptor extends TagDescriptor<AviDirectory>
-{
-    public AviDescriptor(@NotNull AviDirectory directory)
-    {
-        super(directory);
+class AviDescriptor(directory: AviDirectory) : TagDescriptor<AviDirectory>(directory) {
+  override fun getDescription(tagType: Int): String? {
+    when (tagType) {
+      AviDirectory.TAG_WIDTH, AviDirectory.TAG_HEIGHT -> return getSizeDescription(tagType)
     }
+    return super.getDescription(tagType)
+  }
 
-    @Override
-    @Nullable
-    public String getDescription(int tagType)
-    {
-        switch (tagType) {
-            case (AviDirectory.TAG_WIDTH):
-            case (AviDirectory.TAG_HEIGHT):
-                return getSizeDescription(tagType);
-        }
-        return super.getDescription(tagType);
-    }
-
-    public String getSizeDescription(int tagType)
-    {
-        return _directory.getString(tagType) + " pixels";
-    }
+  fun getSizeDescription(tagType: Int): String {
+    return _directory.getString(tagType) + " pixels"
+  }
 }

@@ -18,58 +18,48 @@
  *    https://drewnoakes.com/code/exif/
  *    https://github.com/drewnoakes/metadata-extractor
  */
+package com.drew.metadata.adobe
 
-package com.drew.metadata.adobe;
-
-import org.jetbrains.annotations.NotNull;
-import com.drew.metadata.Directory;
-
-import java.util.HashMap;
+import com.drew.metadata.Directory
+import java.util.*
 
 /**
  * Contains image encoding information for DCT filters, as stored by Adobe.
  */
-@SuppressWarnings("WeakerAccess")
-public class AdobeJpegDirectory extends Directory {
+class AdobeJpegDirectory : Directory() {
+  override val tagNameMap = Companion.tagNameMap
 
-    public static final int TAG_DCT_ENCODE_VERSION = 0;
+  companion object {
+    const val TAG_DCT_ENCODE_VERSION = 0
     /**
      * The convention for TAG_APP14_FLAGS0 and TAG_APP14_FLAGS1 is that 0 bits are benign.
      * 1 bits in TAG_APP14_FLAGS0 pass information that is possibly useful but not essential for decoding.
-     * <p>
+     *
+     *
      * 0x8000 bit: Encoder used Blend=1 downsampling
      */
-    public static final int TAG_APP14_FLAGS0 = 1;
+    const val TAG_APP14_FLAGS0 = 1
     /**
      * The convention for TAG_APP14_FLAGS0 and TAG_APP14_FLAGS1 is that 0 bits are benign.
      * 1 bits in TAG_APP14_FLAGS1 pass information essential for decoding. DCTDecode could reject a compressed
      * image, if there are 1 bits in TAG_APP14_FLAGS1 or color transform codes that it cannot interpret.
      */
-    public static final int TAG_APP14_FLAGS1 = 2;
-    public static final int TAG_COLOR_TRANSFORM = 3;
+    const val TAG_APP14_FLAGS1 = 2
+    const val TAG_COLOR_TRANSFORM = 3
+    private val tagNameMap = HashMap<Int, String>()
 
-    private static final HashMap<Integer, String> _tagNameMap = new HashMap<Integer, String>();
-
-    static {
-        _tagNameMap.put(TAG_DCT_ENCODE_VERSION, "DCT Encode Version");
-        _tagNameMap.put(TAG_APP14_FLAGS0, "Flags 0");
-        _tagNameMap.put(TAG_APP14_FLAGS1, "Flags 1");
-        _tagNameMap.put(TAG_COLOR_TRANSFORM, "Color Transform");
+    init {
+      tagNameMap[TAG_DCT_ENCODE_VERSION] = "DCT Encode Version"
+      tagNameMap[TAG_APP14_FLAGS0] = "Flags 0"
+      tagNameMap[TAG_APP14_FLAGS1] = "Flags 1"
+      tagNameMap[TAG_COLOR_TRANSFORM] = "Color Transform"
     }
+  }
 
-    public AdobeJpegDirectory() {
-        this.setDescriptor(new AdobeJpegDescriptor(this));
-    }
+  override val name: String
+    get() = "Adobe JPEG"
 
-    @NotNull
-    @Override
-    public String getName() {
-        return "Adobe JPEG";
-    }
-
-    @NotNull
-    @Override
-    protected HashMap<Integer, String> getTagNameMap() {
-        return _tagNameMap;
-    }
+  init {
+    setDescriptor(AdobeJpegDescriptor(this))
+  }
 }
