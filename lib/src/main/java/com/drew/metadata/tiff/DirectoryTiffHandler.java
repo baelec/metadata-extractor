@@ -38,7 +38,7 @@ import java.util.Stack;
  */
 public abstract class DirectoryTiffHandler implements TiffHandler
 {
-    private final Stack<Directory> _directoryStack = new Stack<Directory>();
+    private final Stack<Directory> _directoryStack = new Stack<>();
 
     @Nullable private Directory _rootParentDirectory;
     @Nullable protected Directory _currentDirectory;
@@ -134,6 +134,7 @@ public abstract class DirectoryTiffHandler implements TiffHandler
 
     public void setFloatArray(int tagId, @NotNull float[] array)
     {
+        assert _currentDirectory != null;
         _currentDirectory.setFloatArray(tagId, array);
     }
 

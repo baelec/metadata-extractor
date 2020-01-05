@@ -30,9 +30,7 @@ import java.io.IOException
  * @author Payton Garland
  */
 abstract class Mp4Handler<T : Mp4Directory>(protected var metadata: Metadata) {
-  @JvmField
-  protected var directory: T
-  protected abstract fun getDirectory(): T
+  protected abstract val directory: T
   abstract fun shouldAcceptBox(box: Box): Boolean
   abstract fun shouldAcceptContainer(box: Box): Boolean
   @Throws(IOException::class)
@@ -48,7 +46,6 @@ abstract class Mp4Handler<T : Mp4Directory>(protected var metadata: Metadata) {
   }
 
   init {
-    directory = getDirectory()
     metadata.addDirectory(directory)
   }
 }

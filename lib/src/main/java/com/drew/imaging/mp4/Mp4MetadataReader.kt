@@ -1,3 +1,5 @@
+@file:JvmName("Mp4MetadataReader")
+
 /*
  * Copyright 2002-2019 Drew Noakes and contributors
  *
@@ -18,29 +20,35 @@
  *    https://drewnoakes.com/code/exif/
  *    https://github.com/drewnoakes/metadata-extractor
  */
-package com.drew.imaging.heif
+package com.drew.imaging.mp4
 
-import com.drew.lang.SequentialReader
+import com.drew.imaging.ImageProcessingException
 import com.drew.metadata.Metadata
-import com.drew.metadata.heif.HeifDirectory
-import com.drew.metadata.heif.boxes.Box
+import com.drew.metadata.file.FileSystemMetadataReader
+import com.drew.metadata.mp4.Mp4BoxHandler
+import java.io.File
+import java.io.FileInputStream
 import java.io.IOException
+import java.io.InputStream
 
-abstract class HeifHandler<T : HeifDirectory>(protected var metadata: Metadata) {
-  protected abstract val directory: T
-  abstract fun shouldAcceptBox(box: Box): Boolean
-  abstract fun shouldAcceptContainer(box: Box): Boolean
-  @Throws(IOException::class)
-  abstract fun processBox(box: Box, payload: ByteArray): HeifHandler<*>?
-
-  /**
-   * There is potential for a box to both contain other boxes and contain information, so this method will
-   * handle those occurences.
-   */
-  @Throws(IOException::class)
-  abstract fun processContainer(box: Box, reader: SequentialReader)
-
-  init {
-    metadata.addDirectory(directory)
+/**
+ * @author Payton Garland
+ */
+@Throws(ImageProcessingException::class, IOException::class)
+fun readMetadata(file: File): Metadata {
+  val inputStream: InputStream = FileInputStream(file)
+  val metadata: Metadata
+  metadata = inputStream.use { inputStream ->
+    readMetadata(inputStream)
   }
+  FileSystemMetadataReader().read(file, metadata)
+  return metadata
 }
+
+@Throws(IOException::class)
+fun readMetadata(inputStream: InputStream): Metadata {
+  val metadata = Metadata()
+  Mp4Reader.extract(inputStream, Mp4BoxHandler(metadata))
+  return metadata
+}
+

@@ -21,7 +21,7 @@
  */
 package com.drew.imaging.raf
 
-import com.drew.imaging.jpeg.JpegMetadataReader
+import com.drew.imaging.jpeg.readMetadata as readJpegMetadata
 import com.drew.imaging.jpeg.JpegProcessingException
 import com.drew.metadata.Metadata
 import com.drew.metadata.file.FileSystemMetadataReader
@@ -62,5 +62,5 @@ fun readMetadata(inputStream: InputStream): Metadata {
       break
     }
   }
-  return JpegMetadataReader.readMetadata(inputStream)
+  return readJpegMetadata(inputStream)
 }

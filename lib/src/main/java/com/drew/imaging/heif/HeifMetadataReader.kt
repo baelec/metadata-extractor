@@ -1,3 +1,4 @@
+@file:JvmName("HeifMetadataReader")
 /*
  * Copyright 2002-2019 Drew Noakes and contributors
  *
@@ -18,30 +19,22 @@
  *    https://drewnoakes.com/code/exif/
  *    https://github.com/drewnoakes/metadata-extractor
  */
-package com.drew.imaging.heif;
+package com.drew.imaging.heif
 
-import com.drew.imaging.mp4.Mp4Reader;
-import org.jetbrains.annotations.NotNull;
-import com.drew.metadata.Metadata;
-import com.drew.metadata.heif.HeifBoxHandler;
-import com.drew.metadata.mp4.Mp4BoxHandler;
+import com.drew.metadata.Metadata
+import com.drew.metadata.heif.HeifBoxHandler
+import java.io.IOException
+import java.io.InputStream
+import java.util.zip.DataFormatException
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.zip.DataFormatException;
-
-public class HeifMetadataReader
-{
-    @NotNull
-    public static Metadata readMetadata(@NotNull InputStream inputStream) throws IOException
-    {
-        try {
-            Metadata metadata = new Metadata();
-            new HeifReader().extract(metadata, inputStream, new HeifBoxHandler(metadata));
-            return metadata;
-        } catch (DataFormatException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
+@Throws(IOException::class)
+fun readMetadata(inputStream: InputStream): Metadata? {
+  try {
+    val metadata = Metadata()
+    HeifReader().extract(metadata, inputStream, HeifBoxHandler(metadata))
+    return metadata
+  } catch (e: DataFormatException) {
+    e.printStackTrace()
+  }
+  return null
 }

@@ -9,7 +9,7 @@ interface JpegSegmentMetadataReader {
   /**
    * Gets the set of JPEG segment types that this reader is interested in.
    */
-  val segmentTypes: Iterable<JpegSegmentType?>
+  val segmentTypes: Iterable<JpegSegmentType>
 
   /**
    * Extracts metadata from all instances of a particular JPEG segment type.

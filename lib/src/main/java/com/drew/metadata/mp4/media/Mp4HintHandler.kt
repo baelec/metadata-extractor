@@ -18,29 +18,35 @@
  *    https://drewnoakes.com/code/exif/
  *    https://github.com/drewnoakes/metadata-extractor
  */
-package com.drew.imaging.heif
+package com.drew.metadata.mp4.media
 
 import com.drew.lang.SequentialReader
 import com.drew.metadata.Metadata
-import com.drew.metadata.heif.HeifDirectory
-import com.drew.metadata.heif.boxes.Box
+import com.drew.metadata.mp4.Mp4BoxTypes
+import com.drew.metadata.mp4.Mp4Context
+import com.drew.metadata.mp4.Mp4MediaHandler
+import com.drew.metadata.mp4.boxes.Box
+import com.drew.metadata.mp4.boxes.HintMediaHeaderBox
 import java.io.IOException
 
-abstract class HeifHandler<T : HeifDirectory>(protected var metadata: Metadata) {
-  protected abstract val directory: T
-  abstract fun shouldAcceptBox(box: Box): Boolean
-  abstract fun shouldAcceptContainer(box: Box): Boolean
-  @Throws(IOException::class)
-  abstract fun processBox(box: Box, payload: ByteArray): HeifHandler<*>?
+class Mp4HintHandler(metadata: Metadata, context: Mp4Context) : Mp4MediaHandler<Mp4HintDirectory>(metadata, context) {
+  override val directory: Mp4HintDirectory
+    protected get() = Mp4HintDirectory()
 
-  /**
-   * There is potential for a box to both contain other boxes and contain information, so this method will
-   * handle those occurences.
-   */
-  @Throws(IOException::class)
-  abstract fun processContainer(box: Box, reader: SequentialReader)
+  override val mediaInformation: String
+    protected get() = Mp4BoxTypes.BOX_HINT_MEDIA_INFO
 
-  init {
-    metadata.addDirectory(directory)
+  @Throws(IOException::class)
+  override fun processSampleDescription(reader: SequentialReader, box: Box) {
+  }
+
+  @Throws(IOException::class)
+  override fun processMediaInformation(reader: SequentialReader, box: Box) {
+    val hintMediaHeaderBox = HintMediaHeaderBox(reader, box)
+    hintMediaHeaderBox.addMetadata(directory)
+  }
+
+  @Throws(IOException::class)
+  override fun processTimeToSample(reader: SequentialReader, box: Box, context: Mp4Context?) {
   }
 }

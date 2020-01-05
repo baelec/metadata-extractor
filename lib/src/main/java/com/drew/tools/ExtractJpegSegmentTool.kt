@@ -24,7 +24,7 @@ package com.drew.tools
 
 import com.drew.imaging.jpeg.JpegProcessingException
 import com.drew.imaging.jpeg.JpegSegmentData
-import com.drew.imaging.jpeg.JpegSegmentReader
+import com.drew.imaging.jpeg.readSegments
 import com.drew.imaging.jpeg.JpegSegmentType
 import java.io.File
 import java.io.IOException
@@ -68,7 +68,7 @@ fun main(args: Array<String>) {
     segmentTypes.addAll(JpegSegmentType.canContainMetadataTypes)
   }
   println("Reading: $filePath")
-  val segmentData = JpegSegmentReader.readSegments(File(filePath), segmentTypes)
+  val segmentData = readSegments(File(filePath), segmentTypes)
   saveSegmentFiles(filePath, segmentData)
 }
 
