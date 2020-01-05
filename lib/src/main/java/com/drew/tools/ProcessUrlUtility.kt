@@ -22,7 +22,7 @@
  */
 package com.drew.tools
 
-import com.drew.imaging.ImageMetadataReader
+import com.drew.imaging.readMetadata
 import com.drew.imaging.ImageProcessingException
 import com.drew.imaging.jpeg.JpegProcessingException
 import com.drew.metadata.Metadata
@@ -54,7 +54,7 @@ private fun processUrl(url: URL) {
   // Read metadata
   val metadata: Metadata
   metadata = try {
-    ImageMetadataReader.readMetadata(inputStream)
+    readMetadata(inputStream)
   } catch (e: ImageProcessingException) { // this is an error in the Jpeg segment structure.  we're looking for bad handling of
     // metadata segments.  in this case, we didn't even get a segment.
     System.err.println("%s: %s [Error Extracting Metadata]%n\t%s".format(e.javaClass.name, url, e.message))

@@ -26,7 +26,7 @@ import com.adobe.internal.xmp.XMPException
 import com.adobe.internal.xmp.options.IteratorOptions
 import com.adobe.internal.xmp.properties.XMPPropertyInfo
 import com.drew.imaging.FileTypeDetector
-import com.drew.imaging.ImageMetadataReader
+import com.drew.imaging.readMetadata
 import com.drew.lang.urlEncode
 import com.drew.metadata.Directory
 import com.drew.metadata.Metadata
@@ -106,13 +106,13 @@ private fun processDirectory(path: File, handler: FileHandler, relativePath: Str
   for (pathItem in pathItems) {
     val file = File(path, pathItem)
     if (file.isDirectory) {
-      processDirectory(file, handler, if (relativePath.length == 0) pathItem else "$relativePath/$pathItem", log)
+      processDirectory(file, handler, if (relativePath.isEmpty()) pathItem else "$relativePath/$pathItem", log)
     } else if (handler.shouldProcess(file)) {
       handler.onBeforeExtraction(file, log, relativePath)
       // Read metadata
       val metadata: Metadata
       metadata = try {
-        ImageMetadataReader.readMetadata(file)
+        readMetadata(file)
       } catch (t: Throwable) {
         handler.onExtractionError(file, t, log)
         continue
