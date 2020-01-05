@@ -18,33 +18,28 @@
  *    https://drewnoakes.com/code/exif/
  *    https://github.com/drewnoakes/metadata-extractor
  */
-package com.drew.imaging.quicktime
+package com.drew.metadata.mov.atoms
 
-import com.drew.metadata.Metadata
-import com.drew.metadata.mov.QuickTimeContext
-import com.drew.metadata.mov.QuickTimeDirectory
-import com.drew.metadata.mov.atoms.Atom
+import com.drew.lang.SequentialReader
+import com.drew.metadata.mov.atoms.MusicSampleDescriptionAtom.MusicSampleDescription
+import com.drew.metadata.mov.media.QuickTimeMusicDirectory
 import java.io.IOException
 
 /**
+ * https://developer.apple.com/library/content/documentation/QuickTime/QTFF/QTFFChap3/qtff3.html#//apple_ref/doc/uid/TP40000939-CH205-57445
+ *
  * @author Payton Garland
  */
-abstract class QuickTimeHandler<T : QuickTimeDirectory>(@JvmField protected val metadata: Metadata, val directory: T) {
-  abstract fun shouldAcceptAtom(atom: Atom): Boolean
-  abstract fun shouldAcceptContainer(atom: Atom): Boolean
+class MusicSampleDescriptionAtom(reader: SequentialReader, atom: Atom) : SampleDescriptionAtom<MusicSampleDescription>(reader, atom) {
   @Throws(IOException::class)
-  abstract fun processAtom(atom: Atom, payload: ByteArray?, context: QuickTimeContext): QuickTimeHandler<*>
-
-  @Throws(IOException::class)
-  fun processContainer(atom: Atom, context: QuickTimeContext): QuickTimeHandler<*> {
-    return processAtom(atom, null, context)
+  public override fun getSampleDescription(reader: SequentialReader): MusicSampleDescription {
+    return MusicSampleDescription(reader)
   }
 
-  fun addError(message: String) {
-    directory.addError(message)
+  fun addMetadata(directory: QuickTimeMusicDirectory?) { // Do nothing
   }
 
-  init {
-    metadata.addDirectory(directory)
+  class MusicSampleDescription(reader: SequentialReader) : SampleDescription(reader) {
+    var flags: Long = reader.getUInt32()
   }
 }

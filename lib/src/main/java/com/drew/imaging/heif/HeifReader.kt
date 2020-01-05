@@ -29,20 +29,20 @@ import java.util.zip.DataFormatException
 
 class HeifReader {
   @Throws(IOException::class, DataFormatException::class)
-  fun extract(metadata: Metadata?, inputStream: InputStream?, handler: HeifHandler<*>?) {
-    val reader = StreamReader(inputStream!!)
+  fun extract(metadata: Metadata?, inputStream: InputStream, handler: HeifHandler<*>) {
+    val reader = StreamReader(inputStream)
     reader.isMotorolaByteOrder = true
     processBoxes(reader, -1, handler)
   }
 
-  fun processBoxes(reader: StreamReader, atomEnd: Long, handler: HeifHandler<*>?) {
+  fun processBoxes(reader: StreamReader, atomEnd: Long, handler: HeifHandler<*>) {
     var handler = handler
     try {
       while (if (atomEnd == -1L) true else reader.position < atomEnd) {
         val box = Box(reader)
         // Determine if fourCC is container/atom and process accordingly
         // Unknown atoms will be skipped
-        if (handler!!.shouldAcceptContainer(box)) {
+        if (handler.shouldAcceptContainer(box)) {
           handler.processContainer(box, reader)
           processBoxes(reader, box.size + reader.position - 8, handler)
         } else if (handler.shouldAcceptBox(box)) {

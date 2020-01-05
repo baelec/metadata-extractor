@@ -18,33 +18,12 @@
  *    https://drewnoakes.com/code/exif/
  *    https://github.com/drewnoakes/metadata-extractor
  */
-package com.drew.imaging.quicktime
+package com.drew.metadata.mov.media
 
-import com.drew.metadata.Metadata
-import com.drew.metadata.mov.QuickTimeContext
+import com.drew.metadata.mov.QuickTimeDescriptor
 import com.drew.metadata.mov.QuickTimeDirectory
-import com.drew.metadata.mov.atoms.Atom
-import java.io.IOException
 
 /**
  * @author Payton Garland
  */
-abstract class QuickTimeHandler<T : QuickTimeDirectory>(@JvmField protected val metadata: Metadata, val directory: T) {
-  abstract fun shouldAcceptAtom(atom: Atom): Boolean
-  abstract fun shouldAcceptContainer(atom: Atom): Boolean
-  @Throws(IOException::class)
-  abstract fun processAtom(atom: Atom, payload: ByteArray?, context: QuickTimeContext): QuickTimeHandler<*>
-
-  @Throws(IOException::class)
-  fun processContainer(atom: Atom, context: QuickTimeContext): QuickTimeHandler<*> {
-    return processAtom(atom, null, context)
-  }
-
-  fun addError(message: String) {
-    directory.addError(message)
-  }
-
-  init {
-    metadata.addDirectory(directory)
-  }
-}
+class QuickTimeSoundDescriptor(directory: QuickTimeDirectory) : QuickTimeDescriptor(directory)

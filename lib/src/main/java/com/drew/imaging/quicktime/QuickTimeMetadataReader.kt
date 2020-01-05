@@ -20,31 +20,33 @@
  */
 package com.drew.imaging.quicktime
 
+import com.drew.imaging.ImageProcessingException
 import com.drew.metadata.Metadata
-import com.drew.metadata.mov.QuickTimeContext
-import com.drew.metadata.mov.QuickTimeDirectory
-import com.drew.metadata.mov.atoms.Atom
+import com.drew.metadata.file.FileSystemMetadataReader
+import com.drew.metadata.mov.QuickTimeAtomHandler
+import java.io.File
+import java.io.FileInputStream
 import java.io.IOException
+import java.io.InputStream
 
 /**
  * @author Payton Garland
  */
-abstract class QuickTimeHandler<T : QuickTimeDirectory>(@JvmField protected val metadata: Metadata, val directory: T) {
-  abstract fun shouldAcceptAtom(atom: Atom): Boolean
-  abstract fun shouldAcceptContainer(atom: Atom): Boolean
-  @Throws(IOException::class)
-  abstract fun processAtom(atom: Atom, payload: ByteArray?, context: QuickTimeContext): QuickTimeHandler<*>
-
-  @Throws(IOException::class)
-  fun processContainer(atom: Atom, context: QuickTimeContext): QuickTimeHandler<*> {
-    return processAtom(atom, null, context)
+object QuickTimeMetadataReader {
+  @Throws(ImageProcessingException::class, IOException::class)
+  fun readMetadata(file: File): Metadata {
+    val inputStream: InputStream = FileInputStream(file)
+    val metadata: Metadata
+    metadata = inputStream.use {
+      readMetadata(it)
+    }
+    FileSystemMetadataReader().read(file, metadata)
+    return metadata
   }
 
-  fun addError(message: String) {
-    directory.addError(message)
-  }
-
-  init {
-    metadata.addDirectory(directory)
+  fun readMetadata(inputStream: InputStream): Metadata {
+    val metadata = Metadata()
+    QuickTimeReader.extract(inputStream, QuickTimeAtomHandler(metadata))
+    return metadata
   }
 }

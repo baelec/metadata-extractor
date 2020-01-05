@@ -18,33 +18,32 @@
  *    https://drewnoakes.com/code/exif/
  *    https://github.com/drewnoakes/metadata-extractor
  */
-package com.drew.imaging.quicktime
+package com.drew.metadata.mov.atoms
 
-import com.drew.metadata.Metadata
-import com.drew.metadata.mov.QuickTimeContext
+import com.drew.lang.SequentialReader
 import com.drew.metadata.mov.QuickTimeDirectory
-import com.drew.metadata.mov.atoms.Atom
-import java.io.IOException
+import java.util.*
 
 /**
+ * https://developer.apple.com/library/content/documentation/QuickTime/QTFF/QTFFChap1/qtff1.html#//apple_ref/doc/uid/TP40000939-CH203-CJBCBIFF
+ *
  * @author Payton Garland
  */
-abstract class QuickTimeHandler<T : QuickTimeDirectory>(@JvmField protected val metadata: Metadata, val directory: T) {
-  abstract fun shouldAcceptAtom(atom: Atom): Boolean
-  abstract fun shouldAcceptContainer(atom: Atom): Boolean
-  @Throws(IOException::class)
-  abstract fun processAtom(atom: Atom, payload: ByteArray?, context: QuickTimeContext): QuickTimeHandler<*>
-
-  @Throws(IOException::class)
-  fun processContainer(atom: Atom, context: QuickTimeContext): QuickTimeHandler<*> {
-    return processAtom(atom, null, context)
-  }
-
-  fun addError(message: String) {
-    directory.addError(message)
+class FileTypeCompatibilityAtom(reader: SequentialReader, atom: Atom) : Atom(atom) {
+  var majorBrand: String = reader.getString(4)
+  var minorVersion: Long = reader.getUInt32()
+  var compatibleBrands: ArrayList<String?> = ArrayList((size / 16 shr 2).toInt())
+  fun addMetadata(directory: QuickTimeDirectory) {
+    directory.setString(QuickTimeDirectory.TAG_MAJOR_BRAND, majorBrand)
+    directory.setLong(QuickTimeDirectory.TAG_MINOR_VERSION, minorVersion)
+    directory.setStringArray(QuickTimeDirectory.TAG_COMPATIBLE_BRANDS, compatibleBrands.toTypedArray())
   }
 
   init {
-    metadata.addDirectory(directory)
+    var i = 16
+    while (i < size) {
+      compatibleBrands.add(reader.getString(4))
+      i += 4
+    }
   }
 }

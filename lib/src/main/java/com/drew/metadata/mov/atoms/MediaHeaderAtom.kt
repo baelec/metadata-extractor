@@ -18,33 +18,23 @@
  *    https://drewnoakes.com/code/exif/
  *    https://github.com/drewnoakes/metadata-extractor
  */
-package com.drew.imaging.quicktime
+package com.drew.metadata.mov.atoms
 
-import com.drew.metadata.Metadata
+import com.drew.lang.SequentialReader
 import com.drew.metadata.mov.QuickTimeContext
-import com.drew.metadata.mov.QuickTimeDirectory
-import com.drew.metadata.mov.atoms.Atom
-import java.io.IOException
 
 /**
+ * https://developer.apple.com/library/content/documentation/QuickTime/QTFF/QTFFChap2/qtff2.html#//apple_ref/doc/uid/TP40000939-CH204-SW34
+ *
  * @author Payton Garland
  */
-abstract class QuickTimeHandler<T : QuickTimeDirectory>(@JvmField protected val metadata: Metadata, val directory: T) {
-  abstract fun shouldAcceptAtom(atom: Atom): Boolean
-  abstract fun shouldAcceptContainer(atom: Atom): Boolean
-  @Throws(IOException::class)
-  abstract fun processAtom(atom: Atom, payload: ByteArray?, context: QuickTimeContext): QuickTimeHandler<*>
-
-  @Throws(IOException::class)
-  fun processContainer(atom: Atom, context: QuickTimeContext): QuickTimeHandler<*> {
-    return processAtom(atom, null, context)
-  }
-
-  fun addError(message: String) {
-    directory.addError(message)
-  }
-
+class MediaHeaderAtom(reader: SequentialReader, atom: Atom, context: QuickTimeContext) : FullAtom(reader, atom) {
   init {
-    metadata.addDirectory(directory)
+    context.creationTime = reader.getUInt32()
+    context.modificationTime = reader.getUInt32()
+    context.timeScale = reader.getUInt32()
+    context.duration = reader.getUInt32()
+    val language = reader.getUInt16()
+    val quality = reader.getUInt16()
   }
 }

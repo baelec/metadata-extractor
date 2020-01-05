@@ -33,10 +33,10 @@ import java.io.IOException
 
 class Mp4VideoHandler(metadata: Metadata, context: Mp4Context) : Mp4MediaHandler<Mp4VideoDirectory>(metadata, context) {
   override val mediaInformation: String
-    protected get() = Mp4BoxTypes.BOX_VIDEO_MEDIA_INFO
+    get() = Mp4BoxTypes.BOX_VIDEO_MEDIA_INFO
 
   override val directory: Mp4VideoDirectory
-    protected get() = Mp4VideoDirectory()
+    get() = Mp4VideoDirectory()
 
   @Throws(IOException::class)
   public override fun processSampleDescription(reader: SequentialReader, box: Box) {

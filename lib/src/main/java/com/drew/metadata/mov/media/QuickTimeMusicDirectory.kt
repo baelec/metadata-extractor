@@ -18,33 +18,29 @@
  *    https://drewnoakes.com/code/exif/
  *    https://github.com/drewnoakes/metadata-extractor
  */
-package com.drew.imaging.quicktime
+package com.drew.metadata.mov.media
 
-import com.drew.metadata.Metadata
-import com.drew.metadata.mov.QuickTimeContext
 import com.drew.metadata.mov.QuickTimeDirectory
-import com.drew.metadata.mov.atoms.Atom
-import java.io.IOException
+import com.drew.metadata.mov.media.QuickTimeMediaDirectory.Companion.addQuickTimeMediaTags
+import java.util.*
 
 /**
  * @author Payton Garland
  */
-abstract class QuickTimeHandler<T : QuickTimeDirectory>(@JvmField protected val metadata: Metadata, val directory: T) {
-  abstract fun shouldAcceptAtom(atom: Atom): Boolean
-  abstract fun shouldAcceptContainer(atom: Atom): Boolean
-  @Throws(IOException::class)
-  abstract fun processAtom(atom: Atom, payload: ByteArray?, context: QuickTimeContext): QuickTimeHandler<*>
+class QuickTimeMusicDirectory : QuickTimeDirectory() {
+  companion object {
+    protected val tagNameMap = HashMap<Int, String>()
 
-  @Throws(IOException::class)
-  fun processContainer(atom: Atom, context: QuickTimeContext): QuickTimeHandler<*> {
-    return processAtom(atom, null, context)
+    init {
+      addQuickTimeMediaTags(this.tagNameMap)
+      //TODO: Not yet implemented
+    }
   }
 
-  fun addError(message: String) {
-    directory.addError(message)
-  }
+  override val name: String
+    get() = "QuickTime Music"
 
   init {
-    metadata.addDirectory(directory)
+    setDescriptor(QuickTimeMusicDescriptor(this))
   }
 }

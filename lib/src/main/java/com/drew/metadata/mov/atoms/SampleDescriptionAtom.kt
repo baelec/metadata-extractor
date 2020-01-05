@@ -18,33 +18,28 @@
  *    https://drewnoakes.com/code/exif/
  *    https://github.com/drewnoakes/metadata-extractor
  */
-package com.drew.imaging.quicktime
+package com.drew.metadata.mov.atoms
 
-import com.drew.metadata.Metadata
-import com.drew.metadata.mov.QuickTimeContext
-import com.drew.metadata.mov.QuickTimeDirectory
-import com.drew.metadata.mov.atoms.Atom
+import com.drew.lang.SequentialReader
 import java.io.IOException
+import java.util.*
 
 /**
+ * https://developer.apple.com/library/content/documentation/QuickTime/QTFF/QTFFChap2/qtff2.html#//apple_ref/doc/uid/TP40000939-CH204-25691
+ *
  * @author Payton Garland
  */
-abstract class QuickTimeHandler<T : QuickTimeDirectory>(@JvmField protected val metadata: Metadata, val directory: T) {
-  abstract fun shouldAcceptAtom(atom: Atom): Boolean
-  abstract fun shouldAcceptContainer(atom: Atom): Boolean
+abstract class SampleDescriptionAtom<T : SampleDescription>(reader: SequentialReader, atom: Atom) : FullAtom(reader, atom) {
+  var numberOfEntries: Long = reader.getUInt32()
+  @JvmField
+  var sampleDescriptions: ArrayList<T?>
   @Throws(IOException::class)
-  abstract fun processAtom(atom: Atom, payload: ByteArray?, context: QuickTimeContext): QuickTimeHandler<*>
-
-  @Throws(IOException::class)
-  fun processContainer(atom: Atom, context: QuickTimeContext): QuickTimeHandler<*> {
-    return processAtom(atom, null, context)
-  }
-
-  fun addError(message: String) {
-    directory.addError(message)
-  }
+  abstract fun getSampleDescription(reader: SequentialReader): T?
 
   init {
-    metadata.addDirectory(directory)
+    sampleDescriptions = ArrayList(numberOfEntries.toInt())
+    for (i in 0 until numberOfEntries) {
+      sampleDescriptions.add(getSampleDescription(reader))
+    }
   }
 }

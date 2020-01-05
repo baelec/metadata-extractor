@@ -407,24 +407,20 @@ abstract class Directory protected constructor() {
    * @param tagType the tag identifier
    * @return the tag's value as an array of Strings. If the value is unset or cannot be converted, `null` is returned.
    */
-  fun getStringArray(tagType: Int): Array<String?>? {
+  fun getStringArray(tagType: Int): Array<String>? {
     val o = getObject(tagType) ?: return null
-    when {
-      o is String -> return arrayOf(o)
-      o is StringValue -> return arrayOf(o.toString())
-      o is Array<*> && o.javaClass.componentType == String::class -> return o as Array<String?>
+    return when {
+      o is String -> arrayOf(o)
+      o is StringValue -> arrayOf(o.toString())
+      o is Array<*> && o.javaClass.componentType == String::class -> o as Array<String>
       o is Array<*> && o.javaClass.componentType == Rational::class  -> {
         val rationals = o as Array<Rational>
-        val strings = arrayOfNulls<String>(rationals.size)
-        for (i in strings.indices) strings[i] = rationals[i].toSimpleString(false)
-        return strings
+        rationals.indices.map { rationals[it].toSimpleString(false) }.toTypedArray()
       }
       o is Array<*> -> {
-        val strings = arrayOfNulls<String>(o.size)
-        for (i in strings.indices) strings[i] = o[i].toString()
-        return strings
+        o.indices.map { o[it].toString() }.toTypedArray()
       }
-      else -> return null
+      else -> null
     }
   }
 

@@ -18,29 +18,21 @@
  *    https://drewnoakes.com/code/exif/
  *    https://github.com/drewnoakes/metadata-extractor
  */
-package com.drew.imaging.heif
+package com.drew.metadata.mov.atoms
 
 import com.drew.lang.SequentialReader
-import com.drew.metadata.Metadata
-import com.drew.metadata.heif.HeifDirectory
-import com.drew.metadata.heif.boxes.Box
-import java.io.IOException
+import com.drew.metadata.mov.media.QuickTimeVideoDirectory
 
-abstract class HeifHandler<T : HeifDirectory>(protected var metadata: Metadata) {
-  protected abstract val directory: T
-  abstract fun shouldAcceptBox(box: Box): Boolean
-  abstract fun shouldAcceptContainer(box: Box): Boolean
-  @Throws(IOException::class)
-  abstract fun processBox(box: Box, payload: ByteArray): HeifHandler<*>
-
-  /**
-   * There is potential for a box to both contain other boxes and contain information, so this method will
-   * handle those occurences.
-   */
-  @Throws(IOException::class)
-  abstract fun processContainer(box: Box, reader: SequentialReader)
-
-  init {
-    metadata.addDirectory(directory)
+/**
+ * https://developer.apple.com/library/content/documentation/QuickTime/QTFF/QTFFChap2/qtff2.html#//apple_ref/doc/uid/TP40000939-CH204-25638
+ *
+ * @author Payton Garland
+ */
+class VideoInformationMediaHeaderAtom(reader: SequentialReader, atom: Atom) : FullAtom(reader, atom) {
+  var graphicsMode: Int = reader.getUInt16()
+  var opcolor: IntArray = intArrayOf(reader.getUInt16(), reader.getUInt16(), reader.getUInt16())
+  fun addMetadata(directory: QuickTimeVideoDirectory) {
+    directory.setIntArray(QuickTimeVideoDirectory.TAG_OPCOLOR, opcolor)
+    directory.setInt(QuickTimeVideoDirectory.TAG_GRAPHICS_MODE, graphicsMode)
   }
 }

@@ -46,21 +46,27 @@ class Mp4BoxHandler(metadata: Metadata) : Mp4Handler<Mp4Directory>(metadata) {
   override fun processBox(box: Box, payload: ByteArray?, context: Mp4Context?): Mp4Handler<*> {
     if (payload != null) {
       val reader: SequentialReader = SequentialByteArrayReader(payload)
-      if (box.type == Mp4BoxTypes.BOX_MOVIE_HEADER) {
-        processMovieHeader(reader, box)
-      } else if (box.type == Mp4BoxTypes.BOX_FILE_TYPE) {
-        processFileType(reader, box)
-      } else if (box.type == Mp4BoxTypes.BOX_HANDLER) {
-        val handlerBox = HandlerBox(reader, box)
-        return handlerFactory.getHandler(handlerBox, metadata, context)
-      } else if (box.type == Mp4BoxTypes.BOX_MEDIA_HEADER) {
-        processMediaHeader(reader, box, context)
-      } else if (box.type == Mp4BoxTypes.BOX_TRACK_HEADER) {
-        processTrackHeader(reader, box)
+      when (box.type) {
+        Mp4BoxTypes.BOX_MOVIE_HEADER -> {
+          processMovieHeader(reader, box)
+        }
+        Mp4BoxTypes.BOX_FILE_TYPE -> {
+          processFileType(reader, box)
+        }
+        Mp4BoxTypes.BOX_HANDLER -> {
+          val handlerBox = HandlerBox(reader, box)
+          return handlerFactory.getHandler(handlerBox, metadata, context)
+        }
+        Mp4BoxTypes.BOX_MEDIA_HEADER -> {
+          processMediaHeader(reader, box, context)
+        }
+        Mp4BoxTypes.BOX_TRACK_HEADER -> {
+          processTrackHeader(reader, box)
+        }
       }
     } else {
       if (box.type == Mp4ContainerTypes.BOX_COMPRESSED_MOVIE) {
-        directory!!.addError("Compressed MP4 movies not supported")
+        directory.addError("Compressed MP4 movies not supported")
       }
     }
     return this
