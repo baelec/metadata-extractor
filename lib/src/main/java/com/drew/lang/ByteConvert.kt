@@ -1,3 +1,5 @@
+@file:JvmName("ByteConvert")
+
 /*
  * Copyright 2002-2019 Drew Noakes and contributors
  *
@@ -18,34 +20,21 @@
  *    https://drewnoakes.com/code/exif/
  *    https://github.com/drewnoakes/metadata-extractor
  */
-
-package com.drew.imaging.tiff;
-
-import com.drew.imaging.ImageProcessingException;
-import org.jetbrains.annotations.Nullable;
+package com.drew.lang
 
 /**
- * An exception class thrown upon unexpected and fatal conditions while processing a TIFF file.
- *
- * @author Drew Noakes https://drewnoakes.com
- * @author Darren Salomons
+ * @author Drew Noakes http://drewnoakes.com
  */
-public class TiffProcessingException extends ImageProcessingException
-{
-    private static final long serialVersionUID = -1658134119488001891L;
+fun toInt32BigEndian(bytes: ByteArray): Int {
+  return bytes[0].toInt() shl 24 and -0x1000000 or
+    (bytes[1].toInt() shl 16 and 0xFF0000) or
+    (bytes[2].toInt() shl 8 and 0xFF00) or
+    (bytes[3].toInt() and 0xFF)
+}
 
-    public TiffProcessingException(@Nullable String message)
-    {
-        super(message);
-    }
-
-    public TiffProcessingException(@Nullable String message, @Nullable Throwable cause)
-    {
-        super(message, cause);
-    }
-
-    public TiffProcessingException(@Nullable Throwable cause)
-    {
-        super(cause);
-    }
+fun toInt32LittleEndian(bytes: ByteArray): Int {
+  return bytes[0].toInt() and 0xFF or
+    (bytes[1].toInt() shl 8 and 0xFF00) or
+    (bytes[2].toInt() shl 16 and 0xFF0000) or
+    (bytes[3].toInt() shl 24 and -0x1000000)
 }

@@ -75,7 +75,7 @@ public class JpegReader implements JpegSegmentMetadataReader
         metadata.addDirectory(directory);
 
         // The value of TAG_COMPRESSION_TYPE is determined by the segment type found
-        directory.setInt(JpegDirectory.TAG_COMPRESSION_TYPE, segmentType.byteValue - JpegSegmentType.SOF0.byteValue);
+        directory.setInt(JpegDirectory.TAG_COMPRESSION_TYPE, segmentType.getByteValue() - JpegSegmentType.SOF0.getByteValue());
 
         SequentialReader reader = new SequentialByteArrayReader(segmentBytes);
 

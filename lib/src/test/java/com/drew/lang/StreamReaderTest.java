@@ -30,7 +30,7 @@ import java.io.ByteArrayInputStream;
 public class StreamReaderTest extends SequentialAccessTestBase
 {
     @SuppressWarnings({"ConstantConditions"})
-    @Test(expected = NullPointerException.class)
+    @Test(expected = IllegalArgumentException.class)
     public void testConstructWithNullStreamThrows()
     {
         new StreamReader(null);

@@ -18,28 +18,22 @@
  *    https://drewnoakes.com/code/exif/
  *    https://github.com/drewnoakes/metadata-extractor
  */
-package com.drew.lang;
+package com.drew.imaging.tiff
 
-import org.jetbrains.annotations.NotNull;
+import com.drew.imaging.ImageProcessingException
 
 /**
- * @author Drew Noakes http://drewnoakes.com
+ * An exception class thrown upon unexpected and fatal conditions while processing a TIFF file.
+ *
+ * @author Drew Noakes https://drewnoakes.com
+ * @author Darren Salomons
  */
-public class ByteConvert
-{
-    public static int toInt32BigEndian(@NotNull byte[] bytes)
-    {
-        return (bytes[0] << 24 & 0xFF000000) |
-               (bytes[1] << 16 & 0xFF0000) |
-               (bytes[2] << 8  & 0xFF00) |
-               (bytes[3]       & 0xFF);
-    }
+class TiffProcessingException : ImageProcessingException {
+  constructor(message: String?) : super(message) {}
+  constructor(message: String?, cause: Throwable?) : super(message, cause) {}
+  constructor(cause: Throwable?) : super(cause) {}
 
-    public static int toInt32LittleEndian(@NotNull byte[] bytes)
-    {
-        return (bytes[0]       & 0xFF) |
-               (bytes[1] << 8  & 0xFF00) |
-               (bytes[2] << 16 & 0xFF0000) |
-               (bytes[3] << 24 & 0xFF000000);
-    }
+  companion object {
+    private const val serialVersionUID = -1658134119488001891L
+  }
 }

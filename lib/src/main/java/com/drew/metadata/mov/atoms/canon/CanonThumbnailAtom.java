@@ -23,7 +23,7 @@ import com.drew.metadata.mov.QuickTimeDirectory;
 import com.drew.metadata.mov.atoms.Atom;
 
 /**
- * 
+ *
  * @author PerB
  */
 public class CanonThumbnailAtom extends Atom

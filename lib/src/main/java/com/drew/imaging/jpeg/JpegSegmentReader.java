@@ -106,7 +106,7 @@ public class JpegSegmentReader
         if (segmentTypes != null) {
             segmentTypeBytes = new HashSet<Byte>();
             for (JpegSegmentType segmentType : segmentTypes) {
-                segmentTypeBytes.add(segmentType.byteValue);
+                segmentTypeBytes.add(segmentType.getByteValue());
             }
         }
 

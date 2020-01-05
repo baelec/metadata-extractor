@@ -18,36 +18,13 @@
  *    https://drewnoakes.com/code/exif/
  *    https://github.com/drewnoakes/metadata-extractor
  */
-package com.drew.lang;
+package com.drew.lang
 
-import org.jetbrains.annotations.NotNull;
-import com.drew.metadata.StringValue;
+import com.drew.metadata.StringValue
 
 /**
- * Models a key/value pair, where both are non-null {@link StringValue} objects.
+ * Models a key/value pair, where both are non-null [StringValue] objects.
  *
  * @author Drew Noakes https://drewnoakes.com
  */
-public class KeyValuePair
-{
-    private final String _key;
-    private final StringValue _value;
-
-    public KeyValuePair(@NotNull String key, @NotNull StringValue value)
-    {
-        _key = key;
-        _value = value;
-    }
-
-    @NotNull
-    public String getKey()
-    {
-        return _key;
-    }
-
-    @NotNull
-    public StringValue getValue()
-    {
-        return _value;
-    }
-}
+data class KeyValuePair(val key: String, val value: StringValue)

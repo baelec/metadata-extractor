@@ -97,7 +97,7 @@ public class JpegSegmentData
     @Nullable
     public byte[] getSegment(@NotNull JpegSegmentType segmentType)
     {
-        return getSegment(segmentType.byteValue, 0);
+        return getSegment(segmentType.getByteValue(), 0);
     }
 
     /**
@@ -111,7 +111,7 @@ public class JpegSegmentData
     @Nullable
     public byte[] getSegment(@NotNull JpegSegmentType segmentType, int occurrence)
     {
-        return getSegment(segmentType.byteValue, occurrence);
+        return getSegment(segmentType.getByteValue(), occurrence);
     }
 
     /**
@@ -141,7 +141,7 @@ public class JpegSegmentData
     @NotNull
     public Iterable<byte[]> getSegments(@NotNull JpegSegmentType segmentType)
     {
-        return getSegments(segmentType.byteValue);
+        return getSegments(segmentType.getByteValue());
     }
 
     /**
@@ -184,7 +184,7 @@ public class JpegSegmentData
      */
     public int getSegmentCount(@NotNull JpegSegmentType segmentType)
     {
-        return getSegmentCount(segmentType.byteValue);
+        return getSegmentCount(segmentType.getByteValue());
     }
 
     /**
@@ -209,7 +209,7 @@ public class JpegSegmentData
     @SuppressWarnings({"MismatchedQueryAndUpdateOfCollection"})
     public void removeSegmentOccurrence(@NotNull JpegSegmentType segmentType, int occurrence)
     {
-        removeSegmentOccurrence(segmentType.byteValue, occurrence);
+        removeSegmentOccurrence(segmentType.getByteValue(), occurrence);
     }
 
     /**
@@ -233,7 +233,7 @@ public class JpegSegmentData
      */
     public void removeSegment(@NotNull JpegSegmentType segmentType)
     {
-        removeSegment(segmentType.byteValue);
+        removeSegment(segmentType.getByteValue());
     }
 
     /**
@@ -254,7 +254,7 @@ public class JpegSegmentData
      */
     public boolean containsSegment(@NotNull JpegSegmentType segmentType)
     {
-        return containsSegment(segmentType.byteValue);
+        return containsSegment(segmentType.getByteValue());
     }
 
     /**
