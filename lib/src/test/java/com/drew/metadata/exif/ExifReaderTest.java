@@ -59,15 +59,11 @@ public class ExifReaderTest
     }
 
     @SuppressWarnings("ConstantConditions")
-    @Test
+    @Test(expected = IllegalArgumentException.class)
     public void testExtractWithNullDataThrows() throws Exception
     {
-        try{
-            new ExifReader().readJpegSegments(null, new Metadata(), JpegSegmentType.APP1);
-            fail("Exception expected");
-        } catch (NullPointerException npe) {
-            // passed
-        }
+        new ExifReader().readJpegSegments(null, new Metadata(), JpegSegmentType.APP1);
+        fail("Exception expected");
     }
 
     @Test

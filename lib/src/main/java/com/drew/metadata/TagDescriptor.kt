@@ -125,7 +125,7 @@ open class TagDescriptor<T : Directory>(@JvmField protected val _directory: T) {
   /**
    * LSB first. Labels may be null, a String, or a String[2] with (low label,high label) values.
    */
-  protected fun getBitFlagDescription(tagType: Int, vararg labels: Any): String? {
+  protected fun getBitFlagDescription(tagType: Int, vararg labels: Any?): String? {
     var value = _directory.getInteger(tagType) ?: return null
     val parts: MutableList<String> = ArrayList()
     var bitIndex = 0
