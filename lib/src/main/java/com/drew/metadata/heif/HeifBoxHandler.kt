@@ -56,8 +56,9 @@ class HeifBoxHandler(metadata: Metadata) : HeifHandler<HeifDirectory>(metadata) 
     if (box.type == HeifBoxTypes.BOX_FILE_TYPE) {
       processFileType(reader, box)
     } else if (box.type == HeifBoxTypes.BOX_HANDLER) {
-      handlerBox = HandlerBox(reader, box)
-      return handlerFactory.getHandler(handlerBox, metadata)
+      return HandlerBox(reader, box).let {
+        handlerFactory.getHandler(it, metadata)
+      }
     }
     return this
   }

@@ -36,7 +36,7 @@ class HuffmanTablesDirectory : Directory() {
    * [Directory].
    */
   @JvmField
-  val tables: List<HuffmanTable> = ArrayList(4)
+  val tables: MutableList<HuffmanTable> = ArrayList(4)
 
   companion object {
     const val TAG_NUMBER_OF_TABLES = 1

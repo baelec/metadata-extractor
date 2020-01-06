@@ -100,7 +100,10 @@ fun readMetadata(inputStream: InputStream, streamLength: Long = -1): Metadata {
   val bufferedInputStream = if (inputStream is BufferedInputStream) inputStream else BufferedInputStream(inputStream)
   val fileType = detectFileType(bufferedInputStream)
   val metadata = readMetadata(bufferedInputStream, streamLength, fileType)
-  metadata.addDirectory(FileTypeDirectory(fileType))
+  fileType?.let {
+    metadata.addDirectory(FileTypeDirectory(it))
+  }
+
   return metadata
 }
 
