@@ -1,9 +1,6 @@
 /Releases
 /.idea
 /.iml
-/gradle
-/gradlew
-/gradlew.bat
 .project
 .classpath
 .settings/
