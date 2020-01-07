@@ -75,7 +75,8 @@ class RiffReader {
         } else {
           reader.skip(size - 4.toLong())
         }
-      } else if (fourCC == "IDIT") { // Avi DateTimeOriginal
+      } else if (fourCC == "IDIT") {
+        // Avi DateTimeOriginal
         handler.processChunk(fourCC, reader.getBytes(size - 2))
         reader.skip(2) // ?0A 00?
       } else {

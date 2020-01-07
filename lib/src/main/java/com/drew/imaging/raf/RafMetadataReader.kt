@@ -38,9 +38,7 @@ import java.io.InputStream
  */
 @Throws(JpegProcessingException::class, IOException::class)
 fun readMetadata(file: File): Metadata {
-  val inputStream: InputStream = FileInputStream(file)
-  val metadata: Metadata
-  metadata = inputStream.use { inputStream ->
+  val metadata = FileInputStream(file).use { inputStream ->
     readMetadata(inputStream)
   }
   FileSystemMetadataReader().read(file, metadata)

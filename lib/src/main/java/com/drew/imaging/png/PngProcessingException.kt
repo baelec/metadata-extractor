@@ -28,9 +28,9 @@ import com.drew.imaging.ImageProcessingException
  * @author Drew Noakes https://drewnoakes.com
  */
 class PngProcessingException : ImageProcessingException {
-  constructor(message: String?) : super(message) {}
-  constructor(message: String?, cause: Throwable?) : super(message, cause) {}
-  constructor(cause: Throwable?) : super(cause) {}
+  constructor(message: String?) : super(message)
+  constructor(message: String?, cause: Throwable?) : super(message, cause)
+  constructor(cause: Throwable?) : super(cause)
 
   companion object {
     private const val serialVersionUID = -687991554932005033L

@@ -39,7 +39,7 @@ class GifImageDirectory : Directory() {
     const val TAG_IS_INTERLACED = 6
     const val TAG_IS_COLOR_TABLE_SORTED = 7
     const val TAG_LOCAL_COLOUR_TABLE_BITS_PER_PIXEL = 8
-    protected val tagNameMap = HashMap<Int, String>()
+    private val tagNameMap = HashMap<Int, String>()
 
     init {
       tagNameMap[TAG_LEFT] = "Left"

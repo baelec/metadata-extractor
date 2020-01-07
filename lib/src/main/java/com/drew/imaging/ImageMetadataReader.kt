@@ -151,9 +151,7 @@ fun readMetadata(inputStream: InputStream, streamLength: Long, fileType: FileTyp
  */
 @Throws(ImageProcessingException::class, IOException::class)
 fun readMetadata(file: File): Metadata {
-  val inputStream: InputStream = FileInputStream(file)
-  val metadata: Metadata
-  metadata = inputStream.use {
+  val metadata = FileInputStream(file).use {
     readMetadata(it, file.length())
   }
   FileSystemMetadataReader().read(file, metadata)
@@ -193,15 +191,16 @@ fun main(args: Array<String>) {
     val startTime = System.nanoTime()
     val file = File(filePath)
     if (!markdownFormat && argList.size > 1) println("\n***** PROCESSING: $filePath\n")
-    var metadata: Metadata? = null
-    try {
-      metadata = readMetadata(file)
+    val metadata = try {
+      readMetadata(file)
     } catch (e: Exception) {
       e.printStackTrace(System.err)
       exitProcess(1)
     }
     val took = System.nanoTime() - startTime
-    if (!markdownFormat) print("Processed %.3f MB file in %.2f ms%n%n".format(file.length() / (1024.0 * 1024), took / 1000000.0))
+    if (!markdownFormat) {
+      print("Processed %.3f MB file in %.2f ms%n%n".format(file.length() / (1024.0 * 1024), took / 1000000.0))
+    }
     if (markdownFormat) {
       val fileName = file.name
       val urlName = urlEncode(filePath)
@@ -232,7 +231,8 @@ fun main(args: Array<String>) {
         }
         if (markdownFormat) {
           println("$directoryName|0x${Integer.toHexString(tag.tagType)}|$tagName|$description")
-        } else { // simple formatting
+        } else {
+          // simple formatting
           if (showHex) {
             println("[$directoryName - ${tag.tagTypeHex}] $tagName = $description")
           } else {
@@ -245,7 +245,7 @@ fun main(args: Array<String>) {
         for (property in xmpProperties.entries) {
           val key = property.key
           var value = property.value
-          if (value != null && value.length > 1024) {
+          if (value.length > 1024) {
             value = "${value.substring(0, 1024)}..."
           }
           if (markdownFormat) {

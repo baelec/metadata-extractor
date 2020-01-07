@@ -100,7 +100,7 @@ data class GeoLocation
     fun degreesMinutesSecondsToDecimal(degs: Rational, mins: Rational, secs: Rational, isNegative: Boolean): Double? {
       var decimal: Double = (abs(degs.toDouble())
         + mins.toDouble() / 60.0 + secs.toDouble() / 3600.0)
-      if (java.lang.Double.isNaN(decimal)) return null
+      if (decimal.isNaN()) return null
       if (isNegative) decimal *= -1.0
       return decimal
     }

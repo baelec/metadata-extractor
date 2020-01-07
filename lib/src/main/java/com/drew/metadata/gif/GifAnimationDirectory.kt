@@ -32,7 +32,7 @@ class GifAnimationDirectory : Directory() {
 
   companion object {
     const val TAG_ITERATION_COUNT = 1
-    protected val tagNameMap = HashMap<Int, String>()
+    private val tagNameMap = HashMap<Int, String>()
 
     init {
       tagNameMap[TAG_ITERATION_COUNT] = "Iteration Count"

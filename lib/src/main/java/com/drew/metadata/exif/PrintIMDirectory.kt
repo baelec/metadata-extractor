@@ -35,7 +35,7 @@ class PrintIMDirectory : Directory() {
 
   companion object {
     const val TagPrintImVersion = 0x0000
-    protected val tagNameMap = HashMap<Int, String>()
+    private val tagNameMap = HashMap<Int, String>()
 
     init {
       tagNameMap[TagPrintImVersion] = "PrintIM Version"

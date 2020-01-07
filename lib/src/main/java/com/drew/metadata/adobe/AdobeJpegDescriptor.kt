@@ -35,13 +35,13 @@ class AdobeJpegDescriptor(directory: AdobeJpegDirectory) : TagDescriptor<AdobeJp
   }
 
   private val dctEncodeVersionDescription: String?
-    private get() {
+    get() {
       val value = _directory.getInteger(AdobeJpegDirectory.TAG_DCT_ENCODE_VERSION)
       return if (value == null) null else if (value == 0x64) "100" else value.toString()
     }
 
   private val colorTransformDescription: String?
-    private get() = getIndexedDescription(AdobeJpegDirectory.TAG_COLOR_TRANSFORM,
+    get() = getIndexedDescription(AdobeJpegDirectory.TAG_COLOR_TRANSFORM,
       "Unknown (RGB or CMYK)",
       "YCbCr",
       "YCCK")

@@ -85,7 +85,8 @@ fun readSegments(file: File, segmentTypes: Iterable<JpegSegmentType>?): JpegSegm
  * then all found segment types are returned.
  */
 @Throws(JpegProcessingException::class, IOException::class)
-fun readSegments(reader: SequentialReader, segmentTypes: Iterable<JpegSegmentType>?): JpegSegmentData { // Must be big-endian
+fun readSegments(reader: SequentialReader, segmentTypes: Iterable<JpegSegmentType>?): JpegSegmentData {
+  // Must be big-endian
   assert(reader.isMotorolaByteOrder)
   // first two bytes should be JPEG magic number
   val magicNumber = reader.getUInt16()
@@ -128,7 +129,8 @@ fun readSegments(reader: SequentialReader, segmentTypes: Iterable<JpegSegmentTyp
       assert(segmentLength == segmentBytes.size)
       segmentData.addSegment(segmentType, segmentBytes)
     } else { // Skip this segment
-      if (!reader.trySkip(segmentLength.toLong())) { // If skipping failed, just return the segments we found so far
+      if (!reader.trySkip(segmentLength.toLong())) {
+        // If skipping failed, just return the segments we found so far
         return segmentData
       }
     }

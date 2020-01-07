@@ -32,13 +32,9 @@ package com.drew.metadata
  */
 data class Face(val x: Int, val y: Int, val width: Int, val height: Int, val name: String?, val age: Age?) {
   override fun toString(): String {
-    val result = StringBuilder()
-    result.append("x: ").append(x)
-    result.append(" y: ").append(y)
-    result.append(" width: ").append(width)
-    result.append(" height: ").append(height)
-    if (name != null) result.append(" name: ").append(name)
-    if (age != null) result.append(" age: ").append(age.toFriendlyString())
-    return result.toString()
+    var result = "x: $x y: $y width: $width height: $height"
+    if (name != null) result = "$result name: $name"
+    if (age != null) result = "$result age: ${age.toFriendlyString()}"
+    return result
   }
 }

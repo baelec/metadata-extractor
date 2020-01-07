@@ -21,6 +21,7 @@
 package com.drew.lang
 
 import java.util.*
+import kotlin.math.max
 
 /**
  * Stores values using a prefix tree (aka 'trie', i.e. reTRIEval data structure).
@@ -30,11 +31,11 @@ import java.util.*
 class ByteTrie<T> {
   /** A node in the trie. Has children and may have an associated value.  */
   internal class ByteTrieNode<T> {
-    internal val _children: MutableMap<Byte, ByteTrieNode<T>> = HashMap()
-    internal var _value: T? = null
+    internal val children: MutableMap<Byte, ByteTrieNode<T>> = HashMap()
+    internal var value: T? = null
     fun setValue(value: T) {
-      if (_value != null) throw RuntimeException("Value already set for this trie node")
-      _value = value
+      if (this.value != null) throw RuntimeException("Value already set for this trie node")
+      this.value = value
     }
   }
 
@@ -50,11 +51,11 @@ class ByteTrie<T> {
    */
   fun find(bytes: ByteArray): T? {
     var node = _root
-    var value = node._value
+    var value = node.value
     for (b in bytes) {
-      val child = node._children[b] ?: break
+      val child = node.children[b] ?: break
       node = child
-      if (node._value != null) value = node._value
+      if (node.value != null) value = node.value
     }
     return value
   }
@@ -65,10 +66,10 @@ class ByteTrie<T> {
     var node = _root
     for (part in parts) {
       for (b in part) {
-        var child = node._children[b]
+        var child = node.children[b]
         if (child == null) {
           child = ByteTrieNode()
-          node._children[b] = child
+          node.children[b] = child
         }
         node = child
         depth++
@@ -76,7 +77,7 @@ class ByteTrie<T> {
     }
     require(depth != 0) { "Parts must contain at least one byte." }
     node.setValue(value)
-    maxDepth = Math.max(maxDepth, depth)
+    maxDepth = max(maxDepth, depth)
   }
 
   /** Sets the default value to use in [ByteTrie.find] when no path matches.  */

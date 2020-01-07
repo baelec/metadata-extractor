@@ -33,7 +33,7 @@ class GifCommentDirectory(comment: StringValue) : Directory() {
 
   companion object {
     const val TAG_COMMENT = 1
-    protected val tagNameMap = HashMap<Int, String>()
+    private val tagNameMap = HashMap<Int, String>()
 
     init {
       tagNameMap[TAG_COMMENT] = "Comment"

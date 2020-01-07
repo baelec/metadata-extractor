@@ -31,10 +31,10 @@ import java.io.RandomAccessFile
  * @author Drew Noakes https://drewnoakes.com
  */
 class RandomAccessFileReader @SuppressWarnings(value = "EI_EXPOSE_REP2", justification = "Design intent") constructor(file: RandomAccessFile, baseOffset: Int) : RandomAccessReader() {
-  private val _file: RandomAccessFile
+  private val _file: RandomAccessFile = file
   override val length: Long
   private var _currentIndex = 0
-  private val _baseOffset: Int
+  private val _baseOffset: Int = baseOffset
 
   @SuppressWarnings(value = "EI_EXPOSE_REP2", justification = "Design intent")
   constructor(file: RandomAccessFile) : this(file, 0)
@@ -82,8 +82,6 @@ class RandomAccessFileReader @SuppressWarnings(value = "EI_EXPOSE_REP2", justifi
   }
 
   init {
-    _file = file
-    _baseOffset = baseOffset
     length = _file.length()
   }
 }

@@ -77,10 +77,8 @@ fun readMetadata(inputStream: InputStream, readers: Iterable<JpegSegmentMetadata
 fun readMetadata(file: File, readers: Iterable<JpegSegmentMetadataReader>? = null): Metadata {
   val inputStream: InputStream = FileInputStream(file)
   val metadata: Metadata
-  metadata = try {
+  metadata = inputStream.use { inputStream ->
     readMetadata(inputStream, readers)
-  } finally {
-    inputStream.close()
   }
   FileSystemMetadataReader().read(file, metadata)
   return metadata

@@ -28,9 +28,9 @@ import com.drew.lang.CompoundException
  * @author Drew Noakes https://drewnoakes.com
  */
 open class ImageProcessingException : CompoundException {
-  constructor(message: String?) : super(message) {}
-  constructor(message: String?, cause: Throwable?) : super(message, cause) {}
-  constructor(cause: Throwable?) : super(cause) {}
+  constructor(message: String?) : super(message)
+  constructor(message: String?, cause: Throwable?) : super(message, cause)
+  constructor(cause: Throwable?) : super(cause)
 
   companion object {
     private const val serialVersionUID = -9115669182209912676L

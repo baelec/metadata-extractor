@@ -60,12 +60,10 @@ class OlympusRawInfoMakernoteDescriptor(directory: OlympusRawInfoMakernoteDirect
   val yCbCrCoefficientsDescription: String?
     get() {
       val values = _directory.getIntArray(OlympusRawInfoMakernoteDirectory.TagYCbCrCoefficients) ?: return null
-      val string =  (0..(values.size / 2)).map { Rational(values[2 * it].toLong(), values[2 * it + 1].toLong()).toDouble() }.joinToString(" ")
-      return if (string.isEmpty()) {
-        string
-      } else {
-        null
-      }
+      return (0 until values.size / 2)
+        .map { Rational(values[2 * it], values[2 * it + 1]).toDouble() }
+        .joinToString(" ")
+        .takeUnless { it.isEmpty() }
     }
 
   val olympusLightSourceDescription: String?

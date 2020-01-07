@@ -34,7 +34,7 @@ class FileSystemDescriptor(directory: FileSystemDirectory) : TagDescriptor<FileS
   }
 
   private val fileSizeDescription: String?
-    private get() {
+    get() {
       val size = _directory.getLongObject(FileSystemDirectory.TAG_FILE_SIZE) ?: return null
       return "$size bytes"
     }

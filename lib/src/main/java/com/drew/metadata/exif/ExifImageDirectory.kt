@@ -34,7 +34,7 @@ class ExifImageDirectory : ExifDirectoryBase() {
   override val tagNameMap = Companion.tagNameMap
 
   companion object {
-    protected val tagNameMap = HashMap<Int, String>()
+    private val tagNameMap = HashMap<Int, String>()
 
     init {
       addExifTagNames(tagNameMap)

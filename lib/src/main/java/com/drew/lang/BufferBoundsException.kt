@@ -28,16 +28,23 @@ import java.io.IOException
  * @author Drew Noakes https://drewnoakes.com
  */
 class BufferBoundsException : IOException {
-  constructor(index: Int, bytesRequested: Int, bufferLength: Long) : super(getMessage(index, bytesRequested, bufferLength)) {}
-  constructor(message: String?) : super(message) {}
+  constructor(index: Int, bytesRequested: Int, bufferLength: Long) : super(getMessage(index, bytesRequested, bufferLength))
+  constructor(message: String?) : super(message)
 
   companion object {
     private const val serialVersionUID = 2911102837808946396L
     private fun getMessage(index: Int, bytesRequested: Int, bufferLength: Long): String {
-      if (index < 0) return String.format("Attempt to read from buffer using a negative index (%d)", index)
-      if (bytesRequested < 0) return String.format("Number of requested bytes cannot be negative (%d)", bytesRequested)
-      return if (index.toLong() + bytesRequested.toLong() - 1L > Int.MAX_VALUE.toLong()) String.format("Number of requested bytes summed with starting index exceed maximum range of signed 32 bit integers (requested index: %d, requested count: %d)", index, bytesRequested) else String.format("Attempt to read from beyond end of underlying data source (requested index: %d, requested count: %d, max index: %d)",
-        index, bytesRequested, bufferLength - 1)
+      if (index < 0) {
+        return "Attempt to read from buffer using a negative index (%d)".format(index)
+      }
+      if (bytesRequested < 0) {
+        return "Number of requested bytes cannot be negative (%d)".format(bytesRequested)
+      }
+      return if (index.toLong() + bytesRequested.toLong() - 1L > Int.MAX_VALUE.toLong()) {
+        "Number of requested bytes summed with starting index exceed maximum range of signed 32 bit integers (requested index: %d, requested count: %d)".format(index, bytesRequested)
+      } else {
+        "Attempt to read from beyond end of underlying data source (requested index: %d, requested count: %d, max index: %d)".format(index, bytesRequested, bufferLength - 1)
+      }
     }
   }
 }

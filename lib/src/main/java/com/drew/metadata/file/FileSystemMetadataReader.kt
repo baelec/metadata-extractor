@@ -34,7 +34,7 @@ class FileSystemMetadataReader {
     var directory = metadata.getFirstDirectoryOfType(FileSystemDirectory::class.java)
     if (directory == null) {
       directory = FileSystemDirectory()
-      metadata.addDirectory<FileSystemDirectory>(directory)
+      metadata.addDirectory(directory)
     }
     directory.setString(FileSystemDirectory.TAG_FILE_NAME, file.name)
     directory.setLong(FileSystemDirectory.TAG_FILE_SIZE, file.length())

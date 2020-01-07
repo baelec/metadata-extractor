@@ -25,4 +25,4 @@ import com.drew.metadata.TagDescriptor
 /**
  * @author Payton Garland
  */
-class Mp3Descriptor(directory: Mp3Directory) : TagDescriptor<Mp3Directory>(directory) {}
+class Mp3Descriptor(directory: Mp3Directory) : TagDescriptor<Mp3Directory>(directory)

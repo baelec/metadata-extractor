@@ -38,12 +38,8 @@ import java.io.InputStream
  */
 @Throws(IOException::class)
 fun readMetadata(file: File): Metadata {
-  val inputStream: InputStream = FileInputStream(file)
-  val metadata: Metadata
-  metadata = try {
-    readMetadata(inputStream)
-  } finally {
-    inputStream.close()
+  val metadata = FileInputStream(file).use {
+    readMetadata(it)
   }
   FileSystemMetadataReader().read(file, metadata)
   return metadata

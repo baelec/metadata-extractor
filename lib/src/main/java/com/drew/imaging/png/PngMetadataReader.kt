@@ -149,7 +149,7 @@ private fun processChunk(metadata: Metadata, chunk: PngChunk) {
     val compressionMethod = reader.getInt8()
     // Only compression method allowed by the spec is zero: deflate
     if (compressionMethod.toInt() == 0) { // bytes left for compressed text is:
-// total bytes length - (profilenamebytes length + null byte + compression method byte)
+      // total bytes length - (profilenamebytes length + null byte + compression method byte)
       val bytesLeft = bytes.size - (profileNameBytes.size + 1 + 1)
       val compressedProfile = reader.getBytes(bytesLeft)
       try {
@@ -157,7 +157,7 @@ private fun processChunk(metadata: Metadata, chunk: PngChunk) {
         IccReader().extract(RandomAccessStreamReader(inflateStream), metadata, directory)
         inflateStream.close()
       } catch (zex: ZipException) {
-        directory.addError(String.format("Exception decompressing PNG iCCP chunk : %s", zex.message))
+        directory.addError("Exception decompressing PNG iCCP chunk : %s".format(zex.message))
         metadata.addDirectory(directory)
       }
     } else {
@@ -174,7 +174,7 @@ private fun processChunk(metadata: Metadata, chunk: PngChunk) {
     val keywordsv = reader.getNullTerminatedStringValue(79 + 1, _latin1Encoding)
     val keyword = keywordsv.toString()
     // bytes left for text is:
-// total bytes length - (Keyword length + null byte)
+    // total bytes length - (Keyword length + null byte)
     val bytesLeft = bytes.size - (keywordsv.bytes.size + 1)
     val value = reader.getNullTerminatedStringValue(bytesLeft, _latin1Encoding)
     val textPairs: MutableList<KeyValuePair> = ArrayList()
@@ -189,7 +189,7 @@ private fun processChunk(metadata: Metadata, chunk: PngChunk) {
     val keyword = keywordsv.toString()
     val compressionMethod = reader.getInt8()
     // bytes left for compressed text is:
-// total bytes length - (Keyword length + null byte + compression method byte)
+    // total bytes length - (Keyword length + null byte + compression method byte)
     val bytesLeft = bytes.size - (keywordsv.bytes.size + 1 + 1)
     var textBytes: ByteArray? = null
     if (compressionMethod.toInt() == 0) {
@@ -198,7 +198,7 @@ private fun processChunk(metadata: Metadata, chunk: PngChunk) {
       } catch (zex: ZipException) {
         textBytes = null
         val directory = PngDirectory(PngChunkType.zTXt)
-        directory.addError(String.format("Exception decompressing PNG zTXt chunk with keyword \"%s\": %s", keyword, zex.message))
+        directory.addError("Exception decompressing PNG zTXt chunk with keyword \"%s\": %s".format(keyword, zex.message))
         metadata.addDirectory(directory)
       }
     } else {
@@ -228,7 +228,7 @@ private fun processChunk(metadata: Metadata, chunk: PngChunk) {
     val languageTagBytes = reader.getNullTerminatedBytes(bytes.size)
     val translatedKeywordBytes = reader.getNullTerminatedBytes(bytes.size)
     // bytes left for compressed text is:
-// total bytes length - (Keyword length + null byte + comp flag byte + comp method byte + lang length + null byte + translated length + null byte)
+    // total bytes length - (Keyword length + null byte + comp flag byte + comp method byte + lang length + null byte + translated length + null byte)
     val bytesLeft = bytes.size - (keywordsv.bytes.size + 1 + 1 + 1 + languageTagBytes.size + 1 + translatedKeywordBytes.size + 1)
     var textBytes: ByteArray? = null
     if (compressionFlag.toInt() == 0) {
@@ -240,7 +240,7 @@ private fun processChunk(metadata: Metadata, chunk: PngChunk) {
         } catch (zex: ZipException) {
           textBytes = null
           val directory = PngDirectory(PngChunkType.iTXt)
-          directory.addError(String.format("Exception decompressing PNG iTXt chunk with keyword \"%s\": %s", keyword, zex.message))
+          directory.addError("Exception decompressing PNG iTXt chunk with keyword \"%s\": %s".format(keyword, zex.message))
           metadata.addDirectory(directory)
         }
       } else {
@@ -264,7 +264,7 @@ private fun processChunk(metadata: Metadata, chunk: PngChunk) {
         metadata.addDirectory(directory)
       }
     }
-  } else if (chunkType.equals(PngChunkType.tIME)) {
+  } else if (chunkType == PngChunkType.tIME) {
     val reader = SequentialByteArrayReader(bytes)
     val year = reader.getUInt16()
     val month = reader.getUInt8().toInt()
@@ -274,15 +274,15 @@ private fun processChunk(metadata: Metadata, chunk: PngChunk) {
     val second = reader.getUInt8().toInt()
     val directory = PngDirectory(PngChunkType.tIME)
     if (isValidDate(year, month - 1, day) && isValidTime(hour, minute, second)) {
-      val dateString = String.format("%04d:%02d:%02d %02d:%02d:%02d", year, month, day, hour, minute, second)
+      val dateString = "%04d:%02d:%02d %02d:%02d:%02d".format(year, month, day, hour, minute, second)
       directory.setString(PngDirectory.TAG_LAST_MODIFICATION_TIME, dateString)
     } else {
-      directory.addError(String.format(
-        "PNG tIME data describes an invalid date/time: year=%d month=%d day=%d hour=%d minute=%d second=%d",
+      directory.addError(
+        "PNG tIME data describes an invalid date/time: year=%d month=%d day=%d hour=%d minute=%d second=%d".format(
         year, month, day, hour, minute, second))
     }
     metadata.addDirectory(directory)
-  } else if (chunkType.equals(PngChunkType.pHYs)) {
+  } else if (chunkType == PngChunkType.pHYs) {
     val reader = SequentialByteArrayReader(bytes)
     val pixelsPerUnitX = reader.getInt32()
     val pixelsPerUnitY = reader.getInt32()
@@ -292,7 +292,7 @@ private fun processChunk(metadata: Metadata, chunk: PngChunk) {
     directory.setInt(PngDirectory.TAG_PIXELS_PER_UNIT_Y, pixelsPerUnitY)
     directory.setInt(PngDirectory.TAG_UNIT_SPECIFIER, unitSpecifier.toInt())
     metadata.addDirectory(directory)
-  } else if (chunkType.equals(PngChunkType.sBIT)) {
+  } else if (chunkType == PngChunkType.sBIT) {
     val directory = PngDirectory(PngChunkType.sBIT)
     directory.setByteArray(PngDirectory.TAG_SIGNIFICANT_BITS, bytes)
     metadata.addDirectory(directory)

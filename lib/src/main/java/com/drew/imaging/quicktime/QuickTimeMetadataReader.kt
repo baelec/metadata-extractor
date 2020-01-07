@@ -35,9 +35,7 @@ import java.io.InputStream
 object QuickTimeMetadataReader {
   @Throws(ImageProcessingException::class, IOException::class)
   fun readMetadata(file: File): Metadata {
-    val inputStream: InputStream = FileInputStream(file)
-    val metadata: Metadata
-    metadata = inputStream.use {
+    val metadata = FileInputStream(file).use {
       readMetadata(it)
     }
     FileSystemMetadataReader().read(file, metadata)

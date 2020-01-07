@@ -210,7 +210,7 @@ class GifReader {
         }
       } else if (extensionType == "ICCRGBG1012") { // ICC profile extension
         val iccBytes = gatherBytes(reader, reader.getByte().toInt() and 0xff)
-        if (iccBytes.size != 0) IccReader().extract(ByteArrayReader(iccBytes), metadata)
+        if (iccBytes.isNotEmpty()) IccReader().extract(ByteArrayReader(iccBytes), metadata)
       } else if (extensionType == "NETSCAPE2.0") {
         reader.skip(2)
         // Netscape's animated GIF extension

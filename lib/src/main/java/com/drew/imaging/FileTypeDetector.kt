@@ -95,7 +95,7 @@ class FileTypeDetector private constructor() {
       root.addPath(FileType.Crw, "II".toByteArray(), byteArrayOf(0x1a, 0x00, 0x00, 0x00), "HEAPCCDR".toByteArray())
       root.addPath(FileType.Cr2, "II".toByteArray(), byteArrayOf(0x2a, 0x00, 0x10, 0x00, 0x00, 0x00, 0x43, 0x52))
       // NOTE this doesn't work for NEF as it incorrectly flags many other TIFF files as being NEF
-//        _root.addPath(FileType.Nef, "MM".getBytes(), new byte[]{0x00, 0x2a, 0x00, 0x00, 0x00, (byte)0x08, 0x00});
+      // _root.addPath(FileType.Nef, "MM".getBytes(), new byte[]{0x00, 0x2a, 0x00, 0x00, 0x00, (byte)0x08, 0x00});
       root.addPath(FileType.Orf, "IIRO".toByteArray(), byteArrayOf(0x08.toByte(), 0x00))
       root.addPath(FileType.Orf, "MMOR".toByteArray(), byteArrayOf(0x00.toByte(), 0x00))
       root.addPath(FileType.Orf, "IIRS".toByteArray(), byteArrayOf(0x08.toByte(), 0x00))

@@ -39,8 +39,8 @@ import java.io.InputStream
   fun readMetadata(file: File): Metadata {
     val inputStream: InputStream = FileInputStream(file)
     val metadata: Metadata
-    metadata = inputStream.use { inputStream ->
-      readMetadata(inputStream)
+    metadata = inputStream.use {
+      readMetadata(it)
     }
     FileSystemMetadataReader().read(file, metadata)
     return metadata

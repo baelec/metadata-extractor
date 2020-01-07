@@ -41,6 +41,8 @@ data class Rational
   val numerator: Long,
   /** Holds the denominator.  */
   val denominator: Long) : Number(), Comparable<Rational>, Serializable {
+
+  constructor(numerator: Int, denominator: Int): this(numerator.toLong(), denominator.toLong())
   /** Returns the numerator.  */
   /** Returns the denominator.  */
 

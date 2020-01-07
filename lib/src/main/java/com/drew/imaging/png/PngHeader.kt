@@ -53,7 +53,8 @@ class PngHeader(bytes: ByteArray) {
       compressionType = reader.getInt8()
       filterMethod = reader.getInt8()
       interlaceMethod = reader.getInt8()
-    } catch (e: IOException) { // Should never happen
+    } catch (e: IOException) {
+      // Should never happen
       throw PngProcessingException(e)
     }
   }

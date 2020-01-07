@@ -111,7 +111,7 @@ class BmpReader {
         BITMAP, OS2_ICON, OS2_COLOR_ICON, OS2_COLOR_POINTER, OS2_POINTER -> {
           directory = BmpHeaderDirectory()
           metadata.addDirectory<Directory>(directory)
-          directory.setInt(BmpHeaderDirectory.Companion.TAG_BITMAP_TYPE, magicNumber)
+          directory.setInt(BmpHeaderDirectory.TAG_BITMAP_TYPE, magicNumber)
           // skip past the rest of the file header
           reader.skip(4 + 2 + 2 + 4.toLong())
           readBitmapHeader(reader, directory, metadata)
@@ -222,10 +222,10 @@ class BmpReader {
          *
          */
     try {
-      val bitmapType = directory.getInt(BmpHeaderDirectory.Companion.TAG_BITMAP_TYPE)
+      val bitmapType = directory.getInt(BmpHeaderDirectory.TAG_BITMAP_TYPE)
       val headerOffset = reader.position
       val headerSize = reader.getInt32()
-      directory.setInt(BmpHeaderDirectory.Companion.TAG_HEADER_SIZE, headerSize)
+      directory.setInt(BmpHeaderDirectory.TAG_HEADER_SIZE, headerSize)
       /*
              * Known header type sizes:
              *
@@ -246,79 +246,79 @@ class BmpReader {
                  * in OS21XBITMAPHEADER they are unsigned. Since BITMAPCOREHEADER,
                  * the Windows version, is most common, read them as signed.
                  */
-        directory.setInt(BmpHeaderDirectory.Companion.TAG_IMAGE_WIDTH, reader.getInt16().toInt())
-        directory.setInt(BmpHeaderDirectory.Companion.TAG_IMAGE_HEIGHT, reader.getInt16().toInt())
-        directory.setInt(BmpHeaderDirectory.Companion.TAG_COLOUR_PLANES, reader.getUInt16())
-        directory.setInt(BmpHeaderDirectory.Companion.TAG_BITS_PER_PIXEL, reader.getUInt16())
+        directory.setInt(BmpHeaderDirectory.TAG_IMAGE_WIDTH, reader.getInt16().toInt())
+        directory.setInt(BmpHeaderDirectory.TAG_IMAGE_HEIGHT, reader.getInt16().toInt())
+        directory.setInt(BmpHeaderDirectory.TAG_COLOUR_PLANES, reader.getUInt16())
+        directory.setInt(BmpHeaderDirectory.TAG_BITS_PER_PIXEL, reader.getUInt16())
       } else if (headerSize == 12) {
         // OS21XBITMAPHEADER
-        directory.setInt(BmpHeaderDirectory.Companion.TAG_IMAGE_WIDTH, reader.getUInt16())
-        directory.setInt(BmpHeaderDirectory.Companion.TAG_IMAGE_HEIGHT, reader.getUInt16())
-        directory.setInt(BmpHeaderDirectory.Companion.TAG_COLOUR_PLANES, reader.getUInt16())
-        directory.setInt(BmpHeaderDirectory.Companion.TAG_BITS_PER_PIXEL, reader.getUInt16())
+        directory.setInt(BmpHeaderDirectory.TAG_IMAGE_WIDTH, reader.getUInt16())
+        directory.setInt(BmpHeaderDirectory.TAG_IMAGE_HEIGHT, reader.getUInt16())
+        directory.setInt(BmpHeaderDirectory.TAG_COLOUR_PLANES, reader.getUInt16())
+        directory.setInt(BmpHeaderDirectory.TAG_BITS_PER_PIXEL, reader.getUInt16())
       } else if (headerSize == 16 || headerSize == 64) {
         // OS22XBITMAPHEADER
-        directory.setInt(BmpHeaderDirectory.Companion.TAG_IMAGE_WIDTH, reader.getInt32())
-        directory.setInt(BmpHeaderDirectory.Companion.TAG_IMAGE_HEIGHT, reader.getInt32())
-        directory.setInt(BmpHeaderDirectory.Companion.TAG_COLOUR_PLANES, reader.getUInt16())
-        directory.setInt(BmpHeaderDirectory.Companion.TAG_BITS_PER_PIXEL, reader.getUInt16())
+        directory.setInt(BmpHeaderDirectory.TAG_IMAGE_WIDTH, reader.getInt32())
+        directory.setInt(BmpHeaderDirectory.TAG_IMAGE_HEIGHT, reader.getInt32())
+        directory.setInt(BmpHeaderDirectory.TAG_COLOUR_PLANES, reader.getUInt16())
+        directory.setInt(BmpHeaderDirectory.TAG_BITS_PER_PIXEL, reader.getUInt16())
         if (headerSize > 16) {
-          directory.setInt(BmpHeaderDirectory.Companion.TAG_COMPRESSION, reader.getInt32())
+          directory.setInt(BmpHeaderDirectory.TAG_COMPRESSION, reader.getInt32())
           reader.skip(4) // skip the pixel data length
-          directory.setInt(BmpHeaderDirectory.Companion.TAG_X_PIXELS_PER_METER, reader.getInt32())
-          directory.setInt(BmpHeaderDirectory.Companion.TAG_Y_PIXELS_PER_METER, reader.getInt32())
-          directory.setInt(BmpHeaderDirectory.Companion.TAG_PALETTE_COLOUR_COUNT, reader.getInt32())
-          directory.setInt(BmpHeaderDirectory.Companion.TAG_IMPORTANT_COLOUR_COUNT, reader.getInt32())
+          directory.setInt(BmpHeaderDirectory.TAG_X_PIXELS_PER_METER, reader.getInt32())
+          directory.setInt(BmpHeaderDirectory.TAG_Y_PIXELS_PER_METER, reader.getInt32())
+          directory.setInt(BmpHeaderDirectory.TAG_PALETTE_COLOUR_COUNT, reader.getInt32())
+          directory.setInt(BmpHeaderDirectory.TAG_IMPORTANT_COLOUR_COUNT, reader.getInt32())
           reader.skip(
             (2 +  // Skip Units, can only be 0 (pixels per meter)
               2 +  // Skip padding
               2) // Skip Recording, can only be 0 (left to right, bottom to top)
               .toLong())
-          directory.setInt(BmpHeaderDirectory.Companion.TAG_RENDERING, reader.getUInt16())
+          directory.setInt(BmpHeaderDirectory.TAG_RENDERING, reader.getUInt16())
           reader.skip(4 + 4.toLong()) // Skip Size1 and Size2
-          directory.setInt(BmpHeaderDirectory.Companion.TAG_COLOR_ENCODING, reader.getInt32())
+          directory.setInt(BmpHeaderDirectory.TAG_COLOR_ENCODING, reader.getInt32())
           reader.skip(4) // Skip Identifier
         }
       } else if (headerSize == 40 || headerSize == 52 || headerSize == 56 || headerSize == 108 || headerSize == 124) {
         // BITMAPINFOHEADER V1-5
-        directory.setInt(BmpHeaderDirectory.Companion.TAG_IMAGE_WIDTH, reader.getInt32())
-        directory.setInt(BmpHeaderDirectory.Companion.TAG_IMAGE_HEIGHT, reader.getInt32())
-        directory.setInt(BmpHeaderDirectory.Companion.TAG_COLOUR_PLANES, reader.getUInt16())
-        directory.setInt(BmpHeaderDirectory.Companion.TAG_BITS_PER_PIXEL, reader.getUInt16())
-        directory.setInt(BmpHeaderDirectory.Companion.TAG_COMPRESSION, reader.getInt32())
+        directory.setInt(BmpHeaderDirectory.TAG_IMAGE_WIDTH, reader.getInt32())
+        directory.setInt(BmpHeaderDirectory.TAG_IMAGE_HEIGHT, reader.getInt32())
+        directory.setInt(BmpHeaderDirectory.TAG_COLOUR_PLANES, reader.getUInt16())
+        directory.setInt(BmpHeaderDirectory.TAG_BITS_PER_PIXEL, reader.getUInt16())
+        directory.setInt(BmpHeaderDirectory.TAG_COMPRESSION, reader.getInt32())
         // skip the pixel data length
         reader.skip(4)
-        directory.setInt(BmpHeaderDirectory.Companion.TAG_X_PIXELS_PER_METER, reader.getInt32())
-        directory.setInt(BmpHeaderDirectory.Companion.TAG_Y_PIXELS_PER_METER, reader.getInt32())
-        directory.setInt(BmpHeaderDirectory.Companion.TAG_PALETTE_COLOUR_COUNT, reader.getInt32())
-        directory.setInt(BmpHeaderDirectory.Companion.TAG_IMPORTANT_COLOUR_COUNT, reader.getInt32())
+        directory.setInt(BmpHeaderDirectory.TAG_X_PIXELS_PER_METER, reader.getInt32())
+        directory.setInt(BmpHeaderDirectory.TAG_Y_PIXELS_PER_METER, reader.getInt32())
+        directory.setInt(BmpHeaderDirectory.TAG_PALETTE_COLOUR_COUNT, reader.getInt32())
+        directory.setInt(BmpHeaderDirectory.TAG_IMPORTANT_COLOUR_COUNT, reader.getInt32())
         if (headerSize == 40) {
           // BITMAPINFOHEADER end
           return
         }
-        directory.setLong(BmpHeaderDirectory.Companion.TAG_RED_MASK, reader.getUInt32())
-        directory.setLong(BmpHeaderDirectory.Companion.TAG_GREEN_MASK, reader.getUInt32())
-        directory.setLong(BmpHeaderDirectory.Companion.TAG_BLUE_MASK, reader.getUInt32())
+        directory.setLong(BmpHeaderDirectory.TAG_RED_MASK, reader.getUInt32())
+        directory.setLong(BmpHeaderDirectory.TAG_GREEN_MASK, reader.getUInt32())
+        directory.setLong(BmpHeaderDirectory.TAG_BLUE_MASK, reader.getUInt32())
         if (headerSize == 52) {
           // BITMAPV2INFOHEADER end
           return
         }
-        directory.setLong(BmpHeaderDirectory.Companion.TAG_ALPHA_MASK, reader.getUInt32())
+        directory.setLong(BmpHeaderDirectory.TAG_ALPHA_MASK, reader.getUInt32())
         if (headerSize == 56) {
           // BITMAPV3INFOHEADER end
           return
         }
         val csType = reader.getUInt32()
-        directory.setLong(BmpHeaderDirectory.Companion.TAG_COLOR_SPACE_TYPE, csType)
+        directory.setLong(BmpHeaderDirectory.TAG_COLOR_SPACE_TYPE, csType)
         reader.skip(36) // Skip color endpoint coordinates
-        directory.setLong(BmpHeaderDirectory.Companion.TAG_GAMMA_RED, reader.getUInt32())
-        directory.setLong(BmpHeaderDirectory.Companion.TAG_GAMMA_GREEN, reader.getUInt32())
-        directory.setLong(BmpHeaderDirectory.Companion.TAG_GAMMA_BLUE, reader.getUInt32())
+        directory.setLong(BmpHeaderDirectory.TAG_GAMMA_RED, reader.getUInt32())
+        directory.setLong(BmpHeaderDirectory.TAG_GAMMA_GREEN, reader.getUInt32())
+        directory.setLong(BmpHeaderDirectory.TAG_GAMMA_BLUE, reader.getUInt32())
         if (headerSize == 108) {
           // BITMAPV4HEADER end
           return
         }
-        directory.setInt(BmpHeaderDirectory.Companion.TAG_INTENT, reader.getInt32())
+        directory.setInt(BmpHeaderDirectory.TAG_INTENT, reader.getInt32())
         if (csType == BmpHeaderDirectory.ColorSpaceType.PROFILE_EMBEDDED.value || csType == BmpHeaderDirectory.ColorSpaceType.PROFILE_LINKED.value) {
           val profileOffset = reader.getUInt32()
           val profileSize = reader.getInt32()
@@ -328,7 +328,7 @@ class BmpReader {
           }
           reader.skip(headerOffset + profileOffset - reader.position)
           if (csType == BmpHeaderDirectory.ColorSpaceType.PROFILE_LINKED.value) {
-            directory.setString(BmpHeaderDirectory.Companion.TAG_LINKED_PROFILE, reader.getNullTerminatedString(profileSize, WINDOWS_1252))
+            directory.setString(BmpHeaderDirectory.TAG_LINKED_PROFILE, reader.getNullTerminatedString(profileSize, WINDOWS_1252))
           } else {
             val randomAccessReader = ByteArrayReader(reader.getBytes(profileSize))
             IccReader().extract(randomAccessReader, metadata, directory)

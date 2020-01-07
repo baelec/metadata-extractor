@@ -62,7 +62,7 @@ class EpsReader {
         val tifOffset = reader.getInt32(20)
         val tifSize = reader.getInt32(24)
         //int checkSum = reader.getInt32(28);
-// Get Tiff/WMF preview data if applicable
+        // Get Tiff/WMF preview data if applicable
         if (tifSize != 0) {
           directory.setInt(EpsDirectory.TAG_TIFF_PREVIEW_SIZE, tifSize)
           directory.setInt(EpsDirectory.TAG_TIFF_PREVIEW_OFFSET, tifOffset)

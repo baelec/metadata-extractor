@@ -35,7 +35,7 @@ class FileTypeDirectory(fileType: FileType) : Directory() {
     const val TAG_DETECTED_FILE_TYPE_LONG_NAME = 2
     const val TAG_DETECTED_FILE_MIME_TYPE = 3
     const val TAG_EXPECTED_FILE_NAME_EXTENSION = 4
-    protected val tagNameMap = HashMap<Int, String>()
+    private val tagNameMap = HashMap<Int, String>()
 
     init {
       tagNameMap[TAG_DETECTED_FILE_TYPE_NAME] = "Detected File Type Name"

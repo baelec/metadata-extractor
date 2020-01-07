@@ -33,7 +33,7 @@ class FileSystemDirectory : Directory() {
     const val TAG_FILE_NAME = 1
     const val TAG_FILE_SIZE = 2
     const val TAG_FILE_MODIFIED_DATE = 3
-    protected val tagNameMap = HashMap<Int, String>()
+    private val tagNameMap = HashMap<Int, String>()
 
     init {
       tagNameMap[TAG_FILE_NAME] = "File Name"
